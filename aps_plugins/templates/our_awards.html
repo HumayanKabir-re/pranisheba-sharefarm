@@ -1,0 +1,23 @@
+{% load thumbnail %}
+<div class="col-lg-6">
+    <div class="ht-box-images style-08 move-up animate">
+        <div class="image-box-wrap">
+            <div class="box-image">
+                <div class="image">
+                    {% if image %}
+                        {% thumbnail image 161x161 as thumb %}
+
+                            <img src="{{ thumb.url }}" alt="{{ head }}" width="{{ thumb.width }}"
+                                 height="{{ thumb.height }}"/>
+
+                    {% endif %}
+                </div>
+            </div>
+            <div class="content">
+                <h6 class="heading"> {{ head }} </h6>
+                <div class="text">{{ description }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

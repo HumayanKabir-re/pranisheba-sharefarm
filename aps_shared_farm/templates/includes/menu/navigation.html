@@ -1,0 +1,88 @@
+{% load i18n menu_tags cache thumbnail %}
+{# DOCS: http://django-cms.readthedocs.org/en/latest/advanced/templatetags.html#show-menu-examples #}
+
+{% for child in children %}
+
+    {% if not request.user.is_anonymous and child.id == 10 %}
+        <div class="header">
+            {#            <div class="header-right-inner" id="hidden-icon-wrapper">#}
+
+            <!-- language-menu -->
+            <div class="language-menu navigation-menu--text_white">
+                <ul>
+                    <li class="child{% if child.ancestor %} ancestor{% endif %}{% if child.selected %} active{% endif %}{% if child.children and dropdown %} children dropdown has-children has-children--multilevel-submenu{% endif %}{% if forloop.first %} first{% endif %}{% if forloop.last %} last{% endif %}">
+                        <a href="{% if child.children and not child.parent and dropdown %} # {% else %}{{ child.get_absolute_url }}{% endif %}">
+
+                            <span>
+
+                            {% if user.userprofile.profile_img %}
+                                {% thumbnail user.userprofile.profile_img 30x30 crop quality=70 upscale as thumb %}
+                                <img class="img-fluid avatar-100" src="{{ thumb.url }}" alt="" width="{{ thumb.width }}"
+                                     height="{{ thumb.height }}"/>
+                            {% else %}
+                                <img class="img-fluid avatar-100" src="https://dummyimage.com/40x40/ced4da/6c757d"
+                                     alt="">
+                            {% endif %}
+
+                                {#            {{ child.get_menu_title }}#}
+                                {% if child.children and not child.parent and dropdown %}
+
+
+                                {% endif %}
+                                {#                                <span class="caret"></span>#}
+
+                            </span>
+                        </a>
+                        {% if child.children %}
+                            {% if child.children and not child.parent and dropdown %}
+                                <ul class="submenu" role="menu">
+                                    {% show_menu from_level to_level extra_inactive extra_active template "" "" child %}
+
+                                </ul>
+                            {% endif %}
+                        {% endif %}
+
+                    </li>
+                </ul>
+            </div>
+
+            <!-- header-search-form -->
+
+            {#            </div>#}
+
+
+        </div>
+
+    {% else %}
+        <li class="child{% if child.ancestor %} ancestor{% endif %}{% if child.selected %} active{% endif %}{% if child.children and dropdown %} children dropdown has-children has-children--multilevel-submenu{% endif %}{% if forloop.first %} first{% endif %}{% if forloop.last %} last{% endif %}">
+            <a {% if child.is_leaf_node and child.level == 1 %}
+                {% if child.id == 3 or child.id == 4 %}
+                    target="_blank"
+                {% endif %}
+            {% endif %} href="{% if child.children and not child.parent and dropdown %} # {% else %}{{ child.get_absolute_url }}{% endif %}">
+
+            <span>
+                {{ child.get_menu_title }}
+                {% if child.children and not child.parent and dropdown %}
+
+
+                {% endif %}
+                {#                <span class="caret"></span>#}
+
+        </span>
+            </a>
+            {% if child.children %}
+                {% if child.children and not child.parent and dropdown %}
+                    <ul class="submenu" role="menu">
+                        {% show_menu from_level to_level extra_inactive extra_active template "" "" child %}
+
+                    </ul>
+                {% endif %}
+            {% endif %}
+
+        </li>
+    {% endif %}
+
+{% endfor %}
+
+

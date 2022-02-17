@@ -1,0 +1,120 @@
+{% extends 'core/base.html' %}
+{% load i18n static widget_tweaks sekizai_tags thumbnail%}
+{% block profile_content %}
+
+    <!--=========== fun fact Wrapper Start ==========-->
+    <div class="fun-fact-wrapper bg-gray section-space--pb_30 section-space--pt_60">
+        <div class="container">
+            <div class="row mb-40 border-bottom-dash">
+                <div class="col-md-4 col-sm-6">
+                    <div class="fun-fact--four text-center">
+                        <div class="icon">
+                            <i class="fal fa-clipboard-list-check"></i>
+                        </div>
+                        <div class="fun-fact-text">
+                            <div class="fun-fact__count">{{ invest_summery.finish_projects }}</div>
+                            <h6 class="fun-fact__text">Finished projects</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="fun-fact--four text-center">
+                        <div class="icon">
+                            <i class="fal fa-coins"></i>
+                        </div>
+                        <div class="fun-fact-text">
+                            <div class="fun-fact__count">৳ <span>{{ invest_summery.total_investment }}</span> </div>
+                            <h6 class="fun-fact__text">Total Investment</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="fun-fact--four text-center">
+                        <div class="icon">
+                            <i class="fal fa-smile-beam"></i>
+                        </div>
+                        <div class="fun-fact-text">
+                            <div class="fun-fact__count">৳ <span>{{ invest_summery.total_return }}</span></div>
+                            <h6 class="fun-fact__text">Total Return</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <div class="fun-fact--four text-center">
+                        <div class="icon">
+                            <i class="fal fa-abacus"></i>
+                        </div>
+                        <div class="fun-fact-text">
+                            <div class="fun-fact__count">{{ invest_summery.running_projects }}</div>
+                            <h6 class="fun-fact__text">Running projects</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="fun-fact--four text-center">
+                        <div class="icon">
+                            <i class="fal fa-cow"></i>
+                        </div>
+                        <div class="fun-fact-text">
+                            <div class="fun-fact__count">৳ <span >{{ invest_summery.running_investment }}</span> </div>
+                            <h6 class="fun-fact__text">Running Investment</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="fun-fact--four text-center">
+                        <div class="icon">
+                            <i class="fal fa-analytics"></i>
+                        </div>
+                        <div class="fun-fact-text">
+                            <div class="fun-fact__count">৳ <span >{{ invest_summery.approx_return }}</span></div>
+                            <h6 class="fun-fact__text">Approx. Return</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--=========== fun fact Wrapper End ==========-->
+    <div class="container bg-white">
+        <div class="row">
+            {% include "core/_invoice_table.html" %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extrascripts %}
+    <script type="text/javascript">
+        $(function () {
+
+
+            // Read book buttons
+            function readBookModalForm() {
+                $(".read-farm").each(function () {
+                    $(this).modalForm({formURL: $(this).data("form-url")});
+                });
+            }
+            readBookModalForm();
+
+            function reinstantiateModalForms() {
+                createBookAsyncModalForm();
+                readBookModalForm();
+                updateBookModalForm();
+                deleteBookModalForm();
+            }
+
+            // Filter books button
+            $("#filter-book").each(function () {
+                $(this).modalForm({formURL: $(this).data("form-url")});
+            });
+
+            // Hide message
+            $(".alert").fadeTo(2000, 500).slideUp(500, function () {
+                $(".alert").slideUp(500);
+            });
+        });
+    </script>
+{% endblock extrascripts %}

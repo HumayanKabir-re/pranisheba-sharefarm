@@ -1,0 +1,1158 @@
+{% extends "base.html" %}
+{% load i18n static cms_tags menu_tags sekizai_tags %}
+
+{% block body_class %}tpl-fullwidth{% endblock %}
+
+
+
+{% block content %}
+    {#    <div class="site-wrapper-reveal section-space--pt__120">#}
+
+    {#        {% block feature %}#}
+    {#            {% placeholder "feature" or %}#}
+
+    <div class="banner">
+        {#            <div class="preloader-activate preloader-active open_tm_preloader">#}
+        {#                <div class="preloader-area-wrap">#}
+        {#                    <div class="spinner d-flex justify-content-center align-items-center h-100">#}
+        {#                        <div class="bounce1"></div>#}
+        {#                        <div class="bounce2"></div>#}
+        {#                        <div class="bounce3"></div>#}
+        {#                    </div>#}
+        {#                </div>#}
+        {#            </div>#}
+        <video class="lozad" data-poster="https://dummyimage.com/400x200/7fb087/7fb087.jpg" width="100%"
+               playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+            <source src="{% static 'img/visuals/banner_video.mp4' %}" type="video/mp4">
+        </video>
+        <div class="overlay overlay-area">
+            <div class="overlay-text large-banner-font">
+                {#                <div class="">#}
+                {#                    Democratizing<br> Agriculture<br> financing and<br> Supply Chain#}
+                {#                </div>#}
+                {#                {% url 'sharedfarm:index' %}#}
+                <div class="row align-items-left">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="appointment-hero-wrap wow move-up text-left">
+                            <div class="appointment-hero-text">
+                                {% placeholder 'banner_overlay_text' or %}
+                                    <h6 class="text-white">Secure & IT Services </h6>
+                                    <h1 class="font-weight--reguler text-white mb-30">Excellent IT services
+                                        for <span
+                                                class="text-line">your success</span></h1>
+                                {% endplaceholder %}
+                                <div class="hero-button">
+                                    <a href="{% url 'sharedfarm:index' %}"
+                                       class="single-popup-wrap video-link">
+                                        <div class="video-content">
+                                            <div class="ht-popup-video video-button">
+                                                <div class="video-mark">
+                                                    <div class="wave-pulse wave-pulse-1"></div>
+                                                    <div class="wave-pulse wave-pulse-2"></div>
+                                                </div>
+                                                <div class="video-button__two">
+                                                    <div class="video-play">
+                                                        <span class="video-play-icon"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="video-text">
+                                                GET STARTED
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {#                <div class="landing-banner-btns">#}
+                {#                    <a class="btn btn-bordered green-bg vdo-btn" href="https://pranishebashop.com.bd/">Buy Agri#}
+                {#                        Products</a>#}
+                {#                    <a class="btn btn-bordered vdo-btn" href="{% url 'sharedfarm:index' %}">Fund Farms</a>#}
+                {#                </div>#}
+            </div>
+        </div>
+    </div>
+
+    {#            {% endplaceholder %}#}
+
+
+    {#        {% endblock feature %}#}
+{#    <div class="appointment-hero-wrapper appointment-hero-bg section-space--ptb_120">#}
+{#        <div class="container">#}
+{#            <div class="row align-items-center">#}
+{#                <div class="col-lg-6 col-md-6">#}
+{#                    <div class="appointment-hero-wrap wow move-up animated" style="visibility: visible;">#}
+{#                        <div class="appointment-hero-text">#}
+{#                            <h6 class="text-white">Secure &amp; IT Services </h6>#}
+{#                            <h1 class="font-weight--reguler text-white mb-30">Excellent IT services for <span#}
+{#                                    class="text-line">your success</span></h1>#}
+{#                            <div class="hero-button">#}
+{#                                <div class="video-popup infotech-video-box">#}
+{#                                    <a href="https://www.youtube.com/watch?v=9No-FiEInLA"#}
+{#                                       class="single-popup-wrap video-link">#}
+{#                                        <div class="video-content">#}
+{#                                            <div class="ht-popup-video video-button">#}
+{#                                                <div class="video-mark">#}
+{#                                                    <div class="wave-pulse wave-pulse-1"></div>#}
+{#                                                    <div class="wave-pulse wave-pulse-2"></div>#}
+{#                                                </div>#}
+{#                                                <div class="video-button__two">#}
+{#                                                    <div class="video-play">#}
+{#                                                        <span class="video-play-icon"></span>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                            <div class="video-text">#}
+{#                                                How we work#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-lg-5 mr-auto ml-auto col-md-6">#}
+{#                    <div class="business-solution-form-wrap mr-auto ml-auto">#}
+{#                        <div class="contact-title text-center section-space--mb_40">#}
+{#                            <h5 class="mb-10">Book appointment</h5>#}
+{#                            <p class="text">It's out pleasure to have a chance to cooperate.</p>#}
+{#                        </div>#}
+{#                        <form id="contact-form" action="https://template.hasthemes.com/mitech/assets/php/hero-mail.php"#}
+{#                              method="post">#}
+{#                            <!-- <form id="contact-form" action="https://whizthemes.com/mail-php/jowel/mitech/php/hero-mail.php" method="post"> -->#}
+{#                            <div class="contact-form__two">#}
+{#                                <div class="contact-inner">#}
+{#                                    <input name="con_name" type="text" placeholder="Name *">#}
+{#                                </div>#}
+{#                                <div class="contact-inner">#}
+{#                                    <input name="con_email" type="email" placeholder="Email *">#}
+{#                                </div>#}
+{#                                <div class="contact-select">#}
+{#                                    <div class="form-item contact-inner">#}
+{#                                                <span class="inquiry">#}
+{#                                        <select id="Visiting" name="Visiting">#}
+{#                                            <option disabled="" selected="">Select Department to email</option>#}
+{#                                            <option value="Your inquiry about">Your inquiry about</option>#}
+{#                                            <option value="General Information Request">General Information Request</option>#}
+{#                                            <option value="Partner Relations">Partner Relations</option>#}
+{#                                            <option value="Careers">Careers</option>#}
+{#                                            <option value="Software Licencing">Software Licencing</option>#}
+{#                                        </select>#}
+{#                                    </span>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="comment-submit-btn text-center">#}
+{#                                    <button class="ht-btn ht-btn-md" type="submit">Submit</button>#}
+{#                                    <p class="form-messege"></p>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </form>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+    <div class="feature-images-wrapper bg-gray section-space--ptb_100" id="our-services">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- section-title-wrap Start -->
+                    <div class="section-title-wrap text-center">
+                        <h6 class="section-sub-title mb-20">Our services</h6>
+                        {% placeholder "who_we_are_text" or %}
+                            <div class="landing-section-content">
+                                <h3 class="heading">For your very specific industry, <br> we have <span
+                                        class="text-color-primary"> highly-tailored IT solutions.</span></h3>
+                            </div>
+                        {% endplaceholder %}
+
+                    </div>
+                    <!-- section-title-wrap Start -->
+                </div>
+            </div>
+
+            <div class="row pricing-table-one feature-content-wrapper">
+                {% placeholder 'stakeholder_details' or %}
+                    <div class="col-12 col-md-6 col-lg-4 col-xl-4 pricing-table wow move-up">
+                        <div class="pricing-table__inner">
+                            <div class="pricing-table__header">
+                                <h6 class="sub-title">Basic</h6>
+                                <div class="pricing-table__image">
+                                    <img src="assets/images/icons/mitech-pricing-box-icon-01-90x90.png"
+                                         class="img-fluid" alt="">
+                                </div>
+                                <div class="pricing-table__price-wrap">
+                                    <h6 class="currency">$</h6>
+                                    <h6 class="price">19</h6>
+                                    <h6 class="period">/mo</h6>
+                                </div>
+                            </div>
+                            <div class="pricing-table__body">
+                                <div class="pricing-table__footer">
+                                    <a href="#" class="ht-btn ht-btn-md ht-btn--outline">Get started</a>
+                                </div>
+                                <ul class="pricing-table__list text-left">
+                                    <li>03 projects</li>
+                                    <li>Quality &amp; Customer Experience</li>
+                                    <li><span class="featured">Try for free, forever!</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% endplaceholder %}
+            </div>
+            {#                <div class="row">#}
+            {#                    <div class="col-12">#}
+            {#                        <div class="feature-content-wrapper">#}
+            {#                            <div class="row  gx-5">#}
+            {#                                <div class="col image-box-area">#}
+            {#                                    <div class="row image-box-boder-box">#}
+            {##}
+            {#                                        {% placeholder 'stakeholder_details' or %}#}
+            {##}
+            {#                                            <div class="col-lg-4 col-md-6 wow move-up">#}
+            {#                                                <div class="ht-box-icon style-02">#}
+            {#                                                    <div class="icon-box-wrap">#}
+            {#                                                        <div class="icon">#}
+            {#                                                            <lord-icon#}
+            {#                                                                    src="https://cdn.lordicon.com/cjieiyzp.json"#}
+            {#                                                                    trigger="hover"#}
+            {#                                                                    colors="primary:#121331,secondary:#339445"#}
+            {#                                                                    stroke="30"#}
+            {#                                                                    style="width:80px;height:80px">#}
+            {#                                                            </lord-icon>#}
+            {#                                    <div class="svg-icon" id="svg-1" data-svg-icon="assets/images/svg/linea-basic-heart.svg"></div>#}
+            {#                                                        </div>#}
+            {#                                                        <div class="content">#}
+            {#                                                            <h5 class="heading">IT Design </h5>#}
+            {#                                                            <div class="text">We provide the most responsive and#}
+            {#                                                                functional IT#}
+            {#                                                                design#}
+            {#                                                                for#}
+            {#                                                                companies and businesses worldwide.#}
+            {#                                                            </div>#}
+            {#                                                            <div class="feature-btn">#}
+            {#                                                                <a href="#">#}
+            {#                                                                    <span class="button-text">Discover now</span>#}
+            {#                                                                    <i class="far fa-long-arrow-right"></i>#}
+            {#                                                                </a>#}
+            {#                                                            </div>#}
+            {#                                                        </div>#}
+            {#                                                    </div>#}
+            {#                                                </div>#}
+            {#                                            </div>#}
+            {#                                        {% endplaceholder %}#}
+            {#                                    </div>#}
+            {#                                </div>#}
+            {##}
+            {##}
+            {#                            </div>#}
+            {#                        </div>#}
+            {##}
+            {#                        <div class="section-under-heading text-center section-space--mt_60 section-space--pt_30">#}
+            {#                            Challenges#}
+            {#                            are just opportunities in disguise. <a href="#">Take the challenge!</a></div>#}
+            {##}
+            {#                    </div>#}
+            {#                </div>#}
+
+        </div>
+    </div>
+    <!--===========  feature-images-wrapper  End =============-->
+
+    {% block our_company %}
+        {% placeholder 'our_company' or %}
+            <!--===========  Our Company History Start =============-->
+
+            <div class="our-company-history section-space--ptb_100" id="our-company">
+                <div class="container-fluid">
+                    <div class="grid-wrapper">
+                        <div class="line line-1"></div>
+                        <div class="line line-2"></div>
+                        <div class="line line-3"></div>
+                        <div class="line line-4"></div>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <div class="faq-custom-col">
+                                <div class="section-title-wrap">
+                                    <h6 class="section-sub-title mb-20">Our company</h6>
+                                    <h3 class="heading">We’ve been triumphing <br> all these <span
+                                            class="text-color-primary"> 38 years.</span> <br> Sacrifices are
+                                        made up
+                                        <br> with success.</h3>
+
+                                    <p class="text mt-30">JouthoKhamar takes into consideration every little detail
+                                        to
+                                        make sure the system run smoothly and responsively. Mitech employs a new
+                                        technique called Minified Technology for securing customers’ database &
+                                        building up highly confidential firewalls.</p>
+
+                                    <div class="inner-button-box section-space--mt_60">
+                                        <a href="#" class="ht-btn ht-btn-md">Find out more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="rv-video-section">
+
+                                <div class="ht-banner-01 ">
+                                    <img class="img-fluid border-radus-5 animation_images one wow fadeInDown"
+                                         src="{% static "img/home-processing-video-intro-slider-slide-01-image-02.jpg" %}"
+                                         alt="">
+                                </div>
+
+                                <div class="ht-banner-02">
+                                    <img class="img-fluid border-radus-5 animation_images two wow fadeInDown"
+                                         src="{% static "img/home-processing-video-intro-slider-slide-01-image-03.jpg" %}"
+                                         alt="">
+                                </div>
+                                <div class="main-video-box video-popup">
+                                    <a href="https://www.youtube.com/watch?v=9No-FiEInLA" class="video-link  mt-30">
+                                        <div class="single-popup-wrap">
+                                            <img class="img-fluid border-radus-5"
+                                                 src="https://dummyimage.com/600x400/343a40/6c757d" alt="">
+                                            <div class="ht-popup-video video-button">
+                                                <div class="video-mark">
+                                                    <div class="wave-pulse wave-pulse-1"></div>
+                                                    <div class="wave-pulse wave-pulse-2"></div>
+                                                </div>
+                                                <div class="video-button__two">
+                                                    <div class="video-play">
+                                                        <span class="video-play-icon"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+
+                                <div class="ht-banner-03">
+                                    <img class="img-fluid border-radus-5 animation_images three wow fadeInDown"
+                                         src="{% static "img/home-processing-video-intro-slider-slide-01-image-04.jpg" %}"
+                                         alt="">
+                                </div>
+
+                                <div class="ht-banner-04">
+                                    <img class="img-fluid border-radus-5 animation_images four wow fadeInDown"
+                                         src="{% static "img/home-processing-video-intro-slider-slide-01-image-05.jpg" %}"
+                                         alt="">
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--===========  Our Company History Start  End =============-->
+        {% endplaceholder %}
+    {% endblock %}
+
+    <!--===========  feature-large-images-wrapper  Start =============-->
+    <div class="feature-large-images-wrapper bg-gray  section-space--ptb_100" id="technology">
+        <div class="container">
+            <div class="cybersecurity-about-box">
+                {% placeholder 'technology' or %}
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="modern-number-01">
+                                <h3 class="heading mt-30">Learn More About Our <span
+                                        class="text-color-primary"> Success <br> Stories</span></h3>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 offset-lg-1">
+                            <div class="conact-us-wrap-one managed-it">
+                                <h5 class="heading ">Adorsho PraniSheba specializes in <span class="text-color-primary"> technological and IT-related services</span>
+                                    such as product engineering, warranty management, building cloud, infrastructure,
+                                    network, etc. </h5>
+
+                                <div class="sub-heading">We’re available for 8 hours a day!<br>Contact to require a
+                                    detailed
+                                    analysis and assessment of your plan.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endplaceholder %}
+                <div class="d-flex justify-content-center">
+                    <div class="section-under-heading text-center section-space--mt_60 section-space--pt_30">
+                        To learn more about every step of the farming process. <a href="{% page_url "technology" %}">Read
+                        more!</a></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--===========  feature-large-images-wrapper  End =============-->
+
+    {% block about_sharefarming %}
+        {% placeholder 'about_sharefarming' or %}
+            <div class="accordion-wrapper section-space--pb_100" id="how-we-works">
+                <div class="container">
+
+                    <div class="row ">
+
+                        <div class="col-lg-6 pr-5">
+                            <div class="faq-two-wrapper section-space--mt_40">
+                                <div id="accordion_two">
+                                    <h6 class="section-sub-title mb-20">How Jouthokhamar Works</h6>
+                                    <div class="card">
+
+                                        <div class="card-header" id="heading__10">
+
+                                            <h5 class="mb-0 font-weight--bold">
+                                                <button class="btn-link" data-toggle="collapse"
+                                                        data-target="#tab__10"
+                                                        aria-expanded="true" aria-controls="tab__10">
+                                                    New multiple site connectivity <span>
+                                            <i class="far fa-caret-circle-down"></i>
+                                            <i class="far fa-caret-circle-right"></i> </span>
+                                                </button>
+                                            </h5>
+                                        </div>
+
+                                        <div id="tab__10" class="show" aria-labelledby="heading__10"
+                                             data-parent="#accordion_two">
+                                            <div class="card-body">
+                                                <p>We use a newly developed technology to connect sites that are
+                                                    based on
+                                                    different types of servers and networks, SiteConnect, which
+                                                    helps to
+                                                    reduce
+                                                    the misinterpretation of signals as well as the loss of data
+                                                    during
+                                                    transfering. </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header" id="heading__11">
+                                            <h5 class="mb-0">
+                                                <button class="btn-link collapsed" data-toggle="collapse"
+                                                        data-target="#collapse__11" aria-expanded="false"
+                                                        aria-controls="collapse__11">
+                                                    IT Security & Software<span>
+                                            <i class="far fa-caret-circle-down"></i>
+                                            <i class="far fa-caret-circle-right"></i>  </span>
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div id="collapse__11" class="collapse" aria-labelledby="heading__11"
+                                             data-parent="#accordion_two">
+                                            <div class="card-body">
+                                                <p>To keep your systems, your devices, and network stay secure, we
+                                                    have
+                                                    developed a new program that limits the access of suspicious
+                                                    objects or
+                                                    people and authenticate all logins to the system. </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header" id="heading__12">
+                                            <h5 class="mb-0">
+                                                <button class="btn-link collapsed" data-toggle="collapse"
+                                                        data-target="#collapse__12" aria-expanded="false"
+                                                        aria-controls="collapse__12">
+                                                    Weak hosted capability<span><i
+                                                        class="far fa-caret-circle-down"></i>
+                                    <i class="far fa-caret-circle-right"></i> </span>
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div id="collapse__12" class="collapse" aria-labelledby="heading__12"
+                                             data-parent="#accordion_two">
+                                            <div class="card-body">
+                                                <p>Some hosts are unaware of the potential risks as well as security
+                                                    loopholes
+                                                    in their system. By detecting these errors and taking prompt
+                                                    actions on
+                                                    improving firewalls, we can upgrade the system security. </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header" id="heading__13">
+                                            <h5 class="mb-0">
+                                                <button class="collapsed" data-toggle="collapse"
+                                                        data-target="#collapse__13"
+                                                        aria-expanded="false" aria-controls="collapse__13">
+                                                    Build internal network <span><i
+                                                        class="far fa-caret-circle-down"></i>
+                                    <i class="far fa-caret-circle-right"></i>  </span>
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div id="collapse__13" class="collapse" aria-labelledby="heading__13"
+                                             data-parent="#accordion_two">
+                                            <div class="card-body">
+                                                <p>The internal network is essential for all companies and
+                                                    corporations,
+                                                    especially for those working in IT sector. To avoid possible
+                                                    risks when
+                                                    sharing internal confidential files and documentation to an
+                                                    external
+                                                    receiver, internal network must be strong. </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <!-- Start single-popup-wrap -->
+                            <div class="section-space--mt_70 ">
+                                <img class="img-fluid border-radus-5"
+                                     src="{% static "assets/Contract Farming Life Cycle-1.png" %}" alt="">
+
+                            </div>
+                            <!-- End single-popup-wrap -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endplaceholder %}
+    {% endblock %}
+    <!--========= About Resources Wrapper Start ===========-->
+    {% block brochure %}
+        {% placeholder 'brochure' or %}
+            <div class="about-resources-wrapper" id="brochure">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 order-2 order-lg-1">
+                            <div class="resources-left-box">
+                                <div class="resources-inner">
+                                    <h6 class="sub-title mb-20">Resources</h6>
+                                    <h3 class="heading">Get a copy of brochure on <span class="text-color-primary"> JouthoKhamar.</span>
+                                    </h3>
+                                    <div class="button mt-30">
+                                        <a href="#" class="ht-btn ht-btn-md">Download now (3MB)</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 order-1 order-lg-2">
+                            <div class="resources-right-box">
+                                <div class="resources-right-inner text-center">
+                                    <div class="resources-images">
+                                        <img class="img-fluid"
+                                             src="{% static 'assets/managed-it-services-book-cover.png' %}"
+                                             alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endplaceholder %}
+    {% endblock %}
+    <!--========= About Resources Wrapper End ===========-->
+
+    <!--======== Tabs Wrapper Start ======== -->
+    <div class="tabs-wrapper section-space--ptb_100" id="discover-our-company">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title-wrapper text-center section-space--mb_60 wow move-up">
+                        {% placeholder 'discover-our-company' or %}
+                        <h6 class="section-sub-title mb-20">discover our company</h6>
+                        <h3 class="section-title">We’ve been thriving in<span
+                                class="text-color-primary"> 2 years</span></h3>
+                        {% endplaceholder %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 ht-tab-wrap">
+                    <div class="text-center  ">
+                        <ul class="nav justify-content-center ht-tab-menu ht-tab-menu_two" role="tablist">
+                            <li class="tab__item nav-item active">
+                                <a class="nav-link active" id="nav-tab1" data-toggle="tab" href="#tab_list_06"
+                                   role="tab" aria-selected="true">Featured By</a>
+                            </li>
+
+                            <li class="tab__item nav-item ">
+                                <a class="nav-link" id="nav-tab3" data-toggle="tab" href="#tab_list_08"
+                                   role="tab"
+                                   aria-selected="false">partners</a>
+                            </li>
+                            <li class="tab__item nav-item ">
+                                <a class="nav-link" id="nav-tab5" data-toggle="tab" href="#tab_list_09"
+                                   role="tab"
+                                   aria-selected="false">Our awards</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-content ht-tab__content">
+
+                        <div class="tab-pane fade show active" id="tab_list_06" role="tabpanel">
+                            <div class="tab-history-wrap section-space--mt_60 brand-logo-slider__one">
+                                <div class="modern-grid--6">
+
+
+                                    {% placeholder "featured_by" or %}
+
+                                        <div class="brand-logo brand-logo--slider">
+                                            <a href="#">
+                                                <div class="brand-logo__image">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-01.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                                <div class="brand-logo__image-hover">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-01-hover.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="brand-logo brand-logo--slider">
+                                            <a href="#">
+                                                <div class="brand-logo__image">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-02.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                                <div class="brand-logo__image-hover">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-02-hover.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="brand-logo brand-logo--slider">
+                                            <a href="#">
+                                                <div class="brand-logo__image">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-03.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                                <div class="brand-logo__image-hover">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-03-hover.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="brand-logo brand-logo--slider">
+                                            <a href="#">
+                                                <div class="brand-logo__image">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-04.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                                <div class="brand-logo__image-hover">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-04-hover.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="brand-logo brand-logo--slider">
+                                            <a href="#">
+                                                <div class="brand-logo__image">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-05.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                                <div class="brand-logo__image-hover">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-05-hover.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="brand-logo brand-logo--slider">
+                                            <a href="#">
+                                                <div class="brand-logo__image">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-06.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                                <div class="brand-logo__image-hover">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-06-hover.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="brand-logo brand-logo--slider">
+                                            <a href="#">
+                                                <div class="brand-logo__image">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-07.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                                <div class="brand-logo__image-hover">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-07-hover.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="brand-logo brand-logo--slider">
+                                            <a href="#">
+                                                <div class="brand-logo__image">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-08.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                                <div class="brand-logo__image-hover">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-08-hover.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="brand-logo brand-logo--slider">
+                                            <a href="#">
+                                                <div class="brand-logo__image">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-09.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                                <div class="brand-logo__image-hover">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-09-hover.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                    {% endplaceholder %}
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="tab_list_08" role="tabpanel">
+                            <div class="tab-history-wrap section-space--mt_60 brand-logo-slider__one">
+                                <div class="modern-grid--6">
+
+
+                                    {% placeholder "partners" or %}
+                                        <div class="brand-logo brand-logo--slider">
+                                            <a href="#">
+                                                <div class="brand-logo__image">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-01.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                                <div class="brand-logo__image-hover">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-01-hover.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="brand-logo brand-logo--slider">
+                                            <a href="#">
+                                                <div class="brand-logo__image">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-02.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                                <div class="brand-logo__image-hover">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-02-hover.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="brand-logo brand-logo--slider">
+                                            <a href="#">
+                                                <div class="brand-logo__image">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-03.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                                <div class="brand-logo__image-hover">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-03-hover.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="brand-logo brand-logo--slider">
+                                            <a href="#">
+                                                <div class="brand-logo__image">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-04.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                                <div class="brand-logo__image-hover">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-04-hover.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="brand-logo brand-logo--slider">
+                                            <a href="#">
+                                                <div class="brand-logo__image">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-05.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                                <div class="brand-logo__image-hover">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-05-hover.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="brand-logo brand-logo--slider">
+                                            <a href="#">
+                                                <div class="brand-logo__image">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-06.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                                <div class="brand-logo__image-hover">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-06-hover.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="brand-logo brand-logo--slider">
+                                            <a href="#">
+                                                <div class="brand-logo__image">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-07.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                                <div class="brand-logo__image-hover">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-07-hover.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="brand-logo brand-logo--slider">
+                                            <a href="#">
+                                                <div class="brand-logo__image">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-08.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                                <div class="brand-logo__image-hover">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-08-hover.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="brand-logo brand-logo--slider">
+                                            <a href="#">
+                                                <div class="brand-logo__image">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-09.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                                <div class="brand-logo__image-hover">
+                                                    <img src="{% static 'assets/brand/mitech-client-logo-09-hover.png' %}"
+                                                         class="img-fluid" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                    {% endplaceholder %}
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="tab_list_09" role="tabpanel">
+                            <div class="tab-history-wrap section-space--mt_20">
+                                <div class="row">
+                                    {% placeholder "our_awards" or %}
+                                        <div class="col-lg-6">
+                                            <div class="ht-box-images style-08 move-up animate">
+                                                <div class="image-box-wrap">
+                                                    <div class="box-image">
+                                                        <div class="image">
+                                                            <img src="assets/images/award/mitech-company-award-01-161x110.jpg"
+                                                                 alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="content">
+                                                        <h6 class="heading"> Top Training Companies 2016 </h6>
+                                                        <div class="text">More than 40 years ago, our company’s
+                                                            namesake,
+                                                            LineThemes, pioneered a revolutionary sales training
+                                                            program
+                                                            for
+                                                            businesses of every size.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="ht-box-images style-08 move-up animate">
+                                                <div class="image-box-wrap">
+                                                    <div class="box-image">
+                                                        <div class="image">
+                                                            <img src="assets/images/award/mitech-company-award-02-161x116.jpg"
+                                                                 alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="content">
+                                                        <h6 class="heading">CIO Big Data 100 </h6>
+                                                        <div class="text">More than 40 years ago, our company’s
+                                                            namesake,
+                                                            LineThemes, pioneered a revolutionary sales training
+                                                            program
+                                                            for
+                                                            businesses of every size.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="ht-box-images style-08 move-up animate">
+                                                <div class="image-box-wrap">
+                                                    <div class="box-image">
+                                                        <div class="image">
+                                                            <img src="assets/images/award/mitech-company-award-03-161x112.jpg"
+                                                                 alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="content">
+                                                        <h6 class="heading">Top 20 Sales Training Companies
+                                                            2015 </h6>
+                                                        <div class="text">More than 40 years ago, our company’s
+                                                            namesake,
+                                                            LineThemes, pioneered a revolutionary sales training
+                                                            program
+                                                            for
+                                                            businesses of every size.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="ht-box-images style-08 move-up animate">
+                                                <div class="image-box-wrap">
+                                                    <div class="box-image">
+                                                        <div class="image">
+                                                            <img src="assets/images/award/mitech-company-award-04-161x109.jpg"
+                                                                 alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="content">
+                                                        <h6 class="heading">Pharma Tech Outlook </h6>
+                                                        <div class="text">More than 40 years ago, our company’s
+                                                            namesake,
+                                                            LineThemes, pioneered a revolutionary sales training
+                                                            program
+                                                            for
+                                                            businesses of every size.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endplaceholder %}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--======== Tabs Wrapper End ======== -->
+    <!--====================  testimonial section ====================-->
+    <div class="testimonial-slider-area bg-gray section-space--ptb_100" id="testimonials">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title-wrap text-center section-space--mb_40">
+                        <h6 class="section-sub-title mb-20">Testimonials</h6>
+                        <h3 class="heading">What do people praise about <span
+                                class="text-color-primary"> JouthoKhamar?</span></h3>
+                    </div>
+                    <div class="testimonial-slider">
+                        <div class="swiper-container testimonial-slider__container">
+                            <div class="swiper-wrapper testimonial-slider__wrapper">
+                                {% placeholder 'testimonial' or %}
+                                    <div class="swiper-slide">
+                                        <div class="testimonial-slider__one wow move-up">
+
+                                            <div class="testimonial-slider--info">
+                                                <div class="testimonial-slider__media">
+                                                    <img src="assets/images/testimonial/mitech-testimonial-avata-02-90x90.jpg"
+                                                         class="img-fluid" alt="">
+                                                </div>
+
+                                                <div class="testimonial-slider__author">
+                                                    <div class="testimonial-rating">
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                    </div>
+                                                    <div class="author-info">
+                                                        <h6 class="name">Abbie Ferguson</h6>
+                                                        <span class="designation">Marketing</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="testimonial-slider__text">I’ve been working with over 35 IT
+                                                companies on more than 200 projects of our company, but @Mitech is
+                                                one
+                                                of
+                                                the most impressive to me.
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="testimonial-slider__one wow move-up">
+
+                                            <div class="testimonial-slider--info">
+                                                <div class="testimonial-slider__media">
+                                                    <img src="assets/images/testimonial/mitech-testimonial-avata-03-90x90.jpg"
+                                                         class="img-fluid" alt="">
+                                                </div>
+
+                                                <div class="testimonial-slider__author">
+                                                    <div class="testimonial-rating">
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                    </div>
+                                                    <div class="author-info">
+                                                        <h6 class="name">Monica Blews</h6>
+                                                        <span class="designation">Web designer</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="testimonial-slider__text">I’ve been working with over 35 IT
+                                                companies on more than 200 projects of our company, but @Mitech is
+                                                one
+                                                of
+                                                the most impressive to me.
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="testimonial-slider__one wow move-up">
+
+                                            <div class="testimonial-slider--info">
+                                                <div class="testimonial-slider__media">
+                                                    <img src="assets/images/testimonial/mitech-testimonial-avata-04-90x90.jpg"
+                                                         class="img-fluid" alt="">
+                                                </div>
+
+                                                <div class="testimonial-slider__author">
+                                                    <div class="testimonial-rating">
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                    </div>
+                                                    <div class="author-info">
+                                                        <h6 class="name">Abbie Ferguson</h6>
+                                                        <span class="designation">WEB DESIGNER</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="testimonial-slider__text">I’ve been working with over 35 IT
+                                                companies on more than 200 projects of our company, but @Mitech is
+                                                one
+                                                of
+                                                the most impressive to me.
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="testimonial-slider__one wow move-up">
+
+                                            <div class="testimonial-slider--info">
+                                                <div class="testimonial-slider__media">
+                                                    <img src="assets/images/testimonial/mitech-testimonial-avata-01-90x90.jpg"
+                                                         class="img-fluid" alt="">
+                                                </div>
+
+                                                <div class="testimonial-slider__author">
+                                                    <div class="testimonial-rating">
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                    </div>
+                                                    <div class="author-info">
+                                                        <h6 class="name">Abbie Ferguson</h6>
+                                                        <span class="designation">WEB DESIGNER</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="testimonial-slider__text">I’ve been working with over 35 IT
+                                                companies on more than 200 projects of our company, but @Mitech is
+                                                one
+                                                of
+                                                the most impressive to me.
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                {% endplaceholder %}
+                            </div>
+                            <div class="swiper-pagination swiper-pagination-t01 section-space--mt_30"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====================  End of testimonial section  ====================-->
+    {% block aps_blog %}
+        <div class="service-projects-wrapper section-space--ptb_100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-title-wrap text-center section-space--mb_60">
+                            {% placeholder "latest_blog_post" or %}
+                                <h6 class="section-sub-title mb-20">Latest from our blog</h6>
+                                <h3 class="heading">Latest news are <span
+                                        class="text-color-primary">on top all times</span></h3>
+                            {% endplaceholder %}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="latest-news-wrap">
+                    <div class="row">
+                        {% placeholder 'aps_blog' or %}
+                        {% endplaceholder %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% placeholder 'subscription_form' or %}
+        {% endplaceholder %}
+    {% endblock %}
+    {#            <!--  Separators Start -->#}
+    {#            <div class="row-separators-wrap particles-area  default-bg-2 separators-space">#}
+    {#                <div class="constellation-wrapper">#}
+    {#                    <div id="particles-js"></div>#}
+    {#                </div>#}
+    {#                <div class="container">#}
+    {#                    <div class="row">#}
+    {#                        <div class="col-lg-12">#}
+    {#                            <div class="separators-inner text-center">#}
+    {#                                <h4 class="text-white">Constellation Effect</h4>#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {##}
+    {##}
+    {#            </div>#}
+    {#            <!--  Separators End -->#}
+
+    {#    </div>#}
+    <script type="text/javascript">
+        {#window.addEventListener("DOMContentLoaded", yall);#}
+        const observer = window.lozad(); // lazy loads elements with default selector as '.lozad'
+        observer.observe();
+        {#document.addEventListener("DOMContentLoaded", yall);#}
+
+    </script>
+
+{% endblock %}
+
+

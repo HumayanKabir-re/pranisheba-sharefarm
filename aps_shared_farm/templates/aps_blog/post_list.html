@@ -1,0 +1,70 @@
+{% extends "aps_blog/base.html" %}
+{% load i18n easy_thumbnails_tags %}
+
+{% spaceless %}
+
+    {% block canonical_url %}
+        <link rel="canonical" href="{{ view.get_view_url }}"/>{% endblock canonical_url %}
+
+    {% block content_blog %}
+        <!--====================  Blog Area Start ====================-->
+        <div class="blog-pages-wrapper section-space--pt_100 section-space--pb_70">
+            <div class="container masonry-activation">
+                <div class="row clearfix masonry-wrap">
+
+                    {% for post in post_list %}
+                        {% include "aps_blog/includes/blog_item.html" with post=post image="true" TRUNCWORDS_COUNT=10 %}
+                    {% empty %}
+                        <p class="blog-empty">{% trans "No article found." %}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!--====================  Blog Area End  ====================-->
+
+{#        <section class="blog-list py-5">#}
+{#            <div class="container_style px-5 my-5">#}
+{#                {% block blog_title %}#}
+{#                    <header>#}
+{#                        <h2>#}
+{#                            {% if author %}{% trans "Articles by" %} {{ author.get_full_name }}#}
+{#                                {% elif archive_date %}{% trans "Archive" %} &ndash;#}
+{#                                {% if month %}{{ archive_date|date:'F' }} {% endif %}{{ year }}#}
+{#                                {% elif tagged_entries %}{% trans "Tag" %} &ndash; {{ tagged_entries|capfirst }}#}
+{#                                {% elif category %}{% trans "Category" %} &ndash; {{ category }}{% endif %}#}
+{#                        </h2>#}
+{#                    </header>#}
+{#                {% endblock %}#}
+{##}
+{##}
+{#                <div class="row_style gx-5">#}
+{#                    {% for post in post_list %}#}
+{#                        {% include "aps_blog/includes/blog_item.html" with post=post image="true" TRUNCWORDS_COUNT=10 %}#}
+{#                    {% empty %}#}
+{#                        <p class="blog-empty">{% trans "No article found." %}</p>#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{##}
+{##}
+{#                {% if author or archive_date or tagged_entries %}#}
+{#                    <p class="blog-back"><a href="{% url 'djangocms_blog:posts-latest' %}">{% trans "Back" %}</a></p>#}
+{#                {% endif %}#}
+{#                {% if is_paginated %}#}
+{#                    <nav class="{% firstof css_grid instance.css_grid %} pagination">#}
+{#                        {% if page_obj.has_previous %}#}
+{#                            <a href="?{{ view.page_kwarg }}={{ page_obj.previous_page_number }}">&laquo; {% trans "previous" %}</a>#}
+{#                        {% endif %}#}
+{#                        <span class="current">#}
+{#            {% trans "Page" %} {{ page_obj.number }} {% trans "of" %} {{ paginator.num_pages }}#}
+{#        </span>#}
+{#                        {% if page_obj.has_next %}#}
+{#                            <a href="?{{ view.page_kwarg }}={{ page_obj.next_page_number }}">{% trans "next" %}#}
+{#                                &raquo;</a>#}
+{#                        {% endif %}#}
+{#                    </nav>#}
+{#                {% endif %}#}
+{#            </div>#}
+{#        </section>#}
+    {% endblock %}
+
+{% endspaceless %}

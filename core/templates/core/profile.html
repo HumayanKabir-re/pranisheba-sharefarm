@@ -1,0 +1,240 @@
+{% extends 'core/base.html' %}
+{% load i18n static widget_tweaks sekizai_tags thumbnail%}
+{% block profile_content %}
+    <!--=========== fun fact Wrapper Start ==========-->
+    <div class="fun-fact-wrapper bg-gray section-space--pb_30 section-space--pt_60">
+        <div class="container">
+            <div class="row mb-40 border-bottom-dash">
+                <div class="col-md-4 col-sm-6">
+                    <div class="fun-fact--four text-center">
+                        <div class="icon">
+                            <i class="fal fa-clipboard-list-check"></i>
+                        </div>
+                        <div class="fun-fact-text">
+                            <div class="fun-fact__count">{{ invest_summery.finish_projects }}</div>
+                            <h6 class="fun-fact__text">Finished projects</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="fun-fact--four text-center">
+                        <div class="icon">
+                            <i class="fal fa-coins"></i>
+                        </div>
+                        <div class="fun-fact-text">
+                            <div class="fun-fact__count">৳ <span>{{ invest_summery.total_investment }}</span> </div>
+                            <h6 class="fun-fact__text">Total Investment</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="fun-fact--four text-center">
+                        <div class="icon">
+                            <i class="fal fa-smile-beam"></i>
+                        </div>
+                        <div class="fun-fact-text">
+                            <div class="fun-fact__count">৳ <span>{{ invest_summery.total_return }}</span></div>
+                            <h6 class="fun-fact__text">Total Return</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <div class="fun-fact--four text-center">
+                        <div class="icon">
+                            <i class="fal fa-abacus"></i>
+                        </div>
+                        <div class="fun-fact-text">
+                            <div class="fun-fact__count">{{ invest_summery.running_projects }}</div>
+                            <h6 class="fun-fact__text">Running projects</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="fun-fact--four text-center">
+                        <div class="icon">
+                            <i class="fal fa-cow"></i>
+                        </div>
+                        <div class="fun-fact-text">
+                            <div class="fun-fact__count">৳ <span >{{ invest_summery.running_investment }}</span> </div>
+                            <h6 class="fun-fact__text">Running Investment</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="fun-fact--four text-center">
+                        <div class="icon">
+                            <i class="fal fa-analytics"></i>
+                        </div>
+                        <div class="fun-fact-text">
+                            <div class="fun-fact__count">৳ <span >{{ invest_summery.approx_return }}</span></div>
+                            <h6 class="fun-fact__text">Approx. Return</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--=========== fun fact Wrapper End ==========-->
+    <div class="container bg-white">
+        <div class="row">
+            <div class="col-lg-4 order-lg-1 order-2">
+                <div class="page-sidebar-content-wrapper page-sidebar-left  small-mt__40 tablet-mt__40">
+
+{#                    <!--=== Sidebar Widget Start ===-->#}
+{#                    <div class="sidebar-widget search-post wow move-up animated" style="visibility: visible;">#}
+{#                        <div class="widget-title">#}
+{#                            <h4 class="sidebar-widget-title">Search</h4>#}
+{#                        </div>#}
+{#                        <form action="#" method="post">#}
+{#                            <div class="widget-search">#}
+{#                                <input type="text" placeholder="Enter search keyword…">#}
+{##}
+{#                                <button type="submit" class="search-submit">#}
+{#                                    <span class="search-btn-icon fa fa-search"></span>#}
+{#                                </button>#}
+{##}
+{#                            </div>#}
+{#                        </form>#}
+{#                    </div>#}
+{#                    <!--=== Sidebar Widget End ===-->#}
+
+
+                    <!-- === Sidebar Widget Start === -->
+                    <div class="sidebar-widget widget-blog-recent-post wow move-up animated" style="visibility: visible;">
+                        <form method="post" action="" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="container_style bootstrap snippets bootdey">
+                                <div class="row_style">
+
+
+                                    <div class="profile-nav col_style-md-3">
+                                        <div class="panel">
+
+                                            <div class="user-heading round">
+                                                <a href="#">
+                                                    {% if user.userprofile.profile_img %}
+                                                        {% thumbnail user.userprofile.profile_img 312x312 crop quality=70 upscale as thumb %}
+                                                        <img src="{{ thumb.url }}" alt="" width="{{ thumb.width }}" height="{{ thumb.height }}" />
+                                                    {% endif %}
+                                                    {#                                <img src="{{ user.userprofile.profile_img.url }}" alt="">#}
+                                                </a><br>
+                                                {% for field in u_form %}
+                                                    {% if field.id_for_label == "id_phone" %}
+                                                        <h1 class="section-sub-title text-white mt-30">{{ field.value }}</h1>
+                                                    {% endif %}
+                                                    {% if field.id_for_label == "id_email" %}
+                                                        <p>{{ field.value }}</p>
+                                                    {% endif %}
+                                                {% endfor %}
+
+
+                                                {#                            <p>deydey@theEmail.com</p>#}
+                                            </div>
+
+                                            <ul>
+                                                <li class="active"><a href="#"> <i class="fa fa-user"></i> Profile</a></li>
+                                                <li><a href="{% url 'core:my_farms' %}"> <i class="fa fa-calendar"></i> My Farms <span
+                                                        class="label label-warning pull-right r-activity"></span></a></li>
+                                                <li><a href="{% url 'core:edit_profile' user.userprofile.id %}"> <i class="fa fa-edit"></i> Edit profile</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </form>
+
+{#                        <h4 class="sidebar-widget-title">Recent Posts</h4>#}
+{##}
+{#                        <ul>#}
+{#                            <li>#}
+{#                                <a href="#">Ideas for High Returns on Investment</a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#">How Technology Made Businesses More Efficient</a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#">Data Secure on Transitioning to a New Office</a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#">The Keys to Persuading Customers Nowadays</a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#">Blockchain Technology Effects on Logistics Sector?</a>#}
+{#                            </li>#}
+{#                        </ul>#}
+
+                    </div>
+                    <!-- === Sidebar Widget End === -->
+
+{#                    <!-- === Sidebar Widget Start === -->#}
+{#                    <div class="sidebar-widget widget-images wow move-up" style="visibility: hidden; animation-name: none;">#}
+{##}
+{#                        <img class="img-fluid" src="assets/images/blog/blog-sidebar-ads.jpg" alt="">#}
+{##}
+{#                    </div>#}
+{#                    <!-- === Sidebar Widget End === -->#}
+{##}
+{#                    <!-- === Sidebar Widget Start === -->#}
+{#                    <div class="sidebar-widget widget-tag wow move-up" style="visibility: hidden; animation-name: none;">#}
+{#                        <h4 class="sidebar-widget-title">Tags</h4>#}
+{#                        <a href="#" class="ht-btn ht-btn-xs">business</a>#}
+{#                        <a href="#" class="ht-btn ht-btn-xs">featured</a>#}
+{#                        <a href="#" class="ht-btn ht-btn-xs">IT Security</a>#}
+{#                        <a href="#" class="ht-btn ht-btn-xs">IT services</a>#}
+{##}
+{#                    </div>#}
+{#                    <!-- === Sidebar Widget End === -->#}
+
+
+                </div>
+            </div>
+
+            <div class="col-lg-8 order-lg-2 order-1">
+                <div class="section-title-wrap text-center section-space--mb_60">
+                    <h3 class="heading mt-30">Profile Info</h3>
+                </div>
+                <div class="main-blog-wrap">
+                    <div class="panel-body bio-graph-info">
+
+                        <div class="row_style small">
+
+                            {% for field in p_form %}
+                                {% if not field.id_for_label == "id_profile_img" %}
+                                    <div class="bio-row">
+                                        <p><span>{{ field.label }}</span>: {{ field.value }}</p>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+
+
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {#    <form method="post" action="">#}
+    {##}
+    {##}
+    {##}
+    {#        <!-- Hidden input field for custom redirection after successful login -->#}
+    {#        <input type="hidden" name="next" value="{{ success_url }}">#}
+    {##}
+    {#        <div class="form-group m-0">#}
+    {#            <button type="submit" class="btn btn-primary btn-block">#}
+    {#                Login#}
+    {#            </button>#}
+    {#        </div>#}
+    {##}
+    {#    </form>#}
+{% endblock %}

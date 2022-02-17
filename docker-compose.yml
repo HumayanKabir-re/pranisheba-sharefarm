@@ -1,0 +1,135 @@
+version: "3.3"
+services:
+#    db:
+#      image: mysql:5.7
+#      command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci
+#      ports:
+#        - "3308:3306"
+#      environment:
+#        MYSQL_ROOT_PASSWORD: root
+#        MYSQL_DATABASE: aps_db
+#        MYSQL_USER: aps_sharedfarm
+#        MYSQL_PASSWORD: aps_sharedfarm_pass
+#        TZ: 'Asia/Dhaka'
+#      volumes:
+#        - mysql:/var/lib/mysql
+#        - ./sql:/docker-entrypoint-initdb.d
+#      networks:
+#        - aps_shared_farm-network
+    web:
+      image: aps_shared_farm
+      restart: always
+      command: gunicorn -w 3 aps_shared_farm.wsgi:application --bind 0.0.0.0:8000
+      volumes:
+        - static_volume:/aps_shared_farm/static
+        - media_volume:/aps_shared_farm/media
+#      ports:
+#        # <Port exposed> : <Port Running inside container>
+#        - 8088:8000
+      domainname: jouthokhamar.pranisheba.com.bd
+      expose:
+        - 8000
+      links:
+#        - db
+        - redis
+      depends_on:
+        - migration
+      networks:
+        - mysql_aps_shared_farm-network
+
+    migration:
+      build: .
+      image: aps_shared_farm
+      command: python manage.py migrate
+      volumes:
+        - .:/aps_shared_farm
+#      links:
+#        - db
+      depends_on:
+        - make_migrations
+      networks:
+        - mysql_aps_shared_farm-network
+
+
+    make_migrations:
+      build: .
+      image: aps_shared_farm
+      command: python manage.py makemigrations
+      volumes:
+        - .:/aps_shared_farm
+      links:
+#        - db
+        - redis
+#      depends_on:
+#        - db
+      networks:
+        - mysql_aps_shared_farm-network
+    redis:
+      image: redis:alpine
+  #    restart: always
+      environment:
+        # ALLOW_EMPTY_PASSWORD is recommended only for development.
+        - ALLOW_EMPTY_PASSWORD=yes
+        - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+      ports:
+        - 6379:6379
+  #    command: redis-server --appendonly yes
+#      volumes:
+#        - redis-data:/redis/data
+      networks:
+        - mysql_aps_shared_farm-network
+    celery:
+      build: .
+      command: celery -A aps_shared_farm worker -l info
+      env_file:
+        - ./.env.dev
+#      volumes:
+#        - ./aps_shared_farm:/aps_shared_farm
+      #    environment:
+      #      - DEBUG=1
+      #      - SECRET_KEY=dbaa1_i7%*3r9-=z-+_mz4r-!qeed@(-a_r(g@k8jo8y3r27%m
+      #      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+      depends_on:
+#        - db
+        - redis
+      networks:
+        - mysql_aps_shared_farm-network
+    celery-beat:
+      build: .
+      command: celery -A aps_shared_farm beat -l info
+      env_file:
+        - ./.env.dev
+#      volumes:
+#        - ./aps_shared_farm:/aps_shared_farm
+      #    environment:
+      #      - DEBUG=1
+      #      - SECRET_KEY=dbaa1_i7%*3r9-=z-+_mz4r-!qeed@(-a_r(g@k8jo8y3r27%m
+      #      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+      depends_on:
+#        - db
+        - redis
+      networks:
+        - mysql_aps_shared_farm-network
+
+
+    nginx:
+      build: ./nginx
+      volumes:
+        - static_volume:/aps_shared_farm/static
+        - media_volume:/aps_shared_farm/media
+      ports:
+        - 8080:80
+      restart: always
+      depends_on:
+        - web
+      networks:
+        - mysql_aps_shared_farm-network
+
+volumes:
+#  mysql:
+#    driver: local
+  static_volume:
+  media_volume:
+networks:
+  mysql_aps_shared_farm-network:
+    external: true

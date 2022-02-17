@@ -1,0 +1,33 @@
+{% load thumbnail cms_tags%}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="gradation-title-wrapper section-space--mb_60">
+
+            <div class="gradation-title-wrap ">
+                {{ instance.myfield }}
+            </div>
+
+
+            <div class="gradation-sub-heading">
+                <h3 class="heading">
+                    <mark>{{ instance.number_of_steps }}</mark>
+                    Steps
+                </h3>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ht-gradation style-01">
+            {% for plugin in instance.child_plugin_instances %}
+                {% render_plugin plugin %}
+            {% endfor %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,128 @@
+{% load djangocms_blog i18n easy_thumbnails_tags cms_tags parler_tags%}
+<div class="col-lg-4 col-md-6 masonary-item wow move-up">
+    <!--======= Single Blog Item Start ========-->
+    <div class="single-blog-item blog-masonry">
+        <!-- Post Feature Start -->
+        <div class="post-feature blog-thumbnail">
+            <a href="{{ post.get_absolute_url }}">
+{#                <img class="img-fluid" src="assets/images/blog/blog-01-370x370.jpg" alt="Blog Images">#}
+                {% if image and post.main_image %}
+                    {% thumbnail post.main_image 370x230 crop=post.thumbnail_options.crop upscale=post.thumbnail_options.upscale subject_location=post.main_image.subject_location as thumb %}
+                    {#                <img class="card-img-top" src="{{ post.main_image.url }}" alt="{{ post.main_image.default_alt_text }}"/>#}
+                    {#                {% thumbnail post.main_image post.thumbnail_options.size crop=post.thumbnail_options.crop upscale=post.thumbnail_options.upscale subject_location=post.main_image.subject_location as thumb %}#}
+                    <img class="img-fluid" src="{{ thumb.url }}" alt="{{ post.main_image.default_alt_text }}"
+                         width="{{ thumb.width }}" height="{{ thumb.height }}"/>
+
+                {% else %}
+                    {% media_images post as previews %}
+                    {% for preview in previews %}<img src="{{ preview }}" alt="{{ post.main_image.default_alt_text }}"/>{% endfor %}
+                {% endif %}
+            </a>
+        </div>
+        <!-- Post Feature End -->
+
+        <!-- Post info Start -->
+        <div class="post-info text-center">
+            <div class="post-meta justify-content-center">
+                {% if post.categories.exists %}
+                    {% for category in post.categories.all %}
+                        {% if category.slug %}
+                            <div class="badge bg-primary bg-gradient rounded-pill mb-2">
+                                <a
+                                        href="{% url 'djangocms_blog:posts-category' category=category.slug %}"
+                                        class="blog-categories">{{ category.name }}</a>
+                                {% if not forloop.last %}
+                                    , {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {% block blog_meta %}
+                    {% include "aps_blog/includes/blog_meta.html" %}
+                {% endblock %}
+
+
+            </div>
+
+
+            <h5 class="post-title font-weight--bold">
+                <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+            </h5>
+{#            {% if post.subtitle %}#}
+{#                <h4 class="post-title mb-3">{{ post.subtitle }}</h4>#}
+{#            {% endif %}#}
+
+            <div class="post-excerpt mb-20">
+                <p>
+                    {% if not TRUNCWORDS_COUNT %}
+                        {% render_model post "abstract" "" "" "safe" %}
+                    {% else %}
+                        {% render_model post "abstract" "" "" "truncatewords_html:TRUNCWORDS_COUNT|safe" %}
+                    {% endif %}
+                </p>
+            </div>
+
+            <div class="post-read-more">
+                <a href="{{ post.get_absolute_url }}" class="btn-read-more">
+                    Read more
+                    <i class="far fa-long-arrow-right ml-1"></i>
+                </a>
+            </div>
+        </div>
+        <!-- Post info End -->
+    </div>
+    <!--===== Single Blog Item End =========-->
+</div>
+{#<div class="col_style-lg-4 mb-5">#}
+{##}
+{#    <div class="card h-100 shadow border-0">#}
+{#        {% if image and post.main_image %}#}
+{#            {% thumbnail post.main_image 300x175 crop=post.thumbnail_options.crop upscale=post.thumbnail_options.upscale subject_location=post.main_image.subject_location as thumb %}#}
+            {#                <img class="card-img-top" src="{{ post.main_image.url }}" alt="{{ post.main_image.default_alt_text }}"/>#}
+            {#                {% thumbnail post.main_image post.thumbnail_options.size crop=post.thumbnail_options.crop upscale=post.thumbnail_options.upscale subject_location=post.main_image.subject_location as thumb %}#}
+{#            <img class="card-img-top" src="{{ thumb.url }}" alt="{{ post.main_image.default_alt_text }}"#}
+{#                 width="{{ thumb.width }}" height="{{ thumb.height }}"/>#}
+{##}
+{#        {% else %}#}
+{#            {% media_images post as previews %}#}
+{#            <div class="blog-visual">#}
+{#                {% for preview in previews %}<img src="{{ preview }}"/>{% endfor %}#}
+{#            </div>#}
+{#        {% endif %}#}
+{##}
+{#        <div class="card-body p-4">#}
+{#            {% if post.categories.exists %}#}
+{#                {% for category in post.categories.all %}#}
+{#                    {% if category.slug %}#}
+{#                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">#}
+{#                            <a#}
+{#                                    href="{% url 'djangocms_blog:posts-category' category=category.slug %}"#}
+{#                                    class="blog-categories">{{ category.name }}</a>#}
+{#                            {% if not forloop.last %}#}
+{#                                , {% endif %}#}
+{#                        </div>#}
+{#                    {% endif %}#}
+{#                {% endfor %}#}
+{#            {% endif %}#}
+{##}
+{#            <a class="text-decoration-none link-dark stretched-link" href="{{ post.get_absolute_url }}"><h5#}
+{#                    class="card-title mb-3">{{ post.title }}</h5></a>#}
+{#            {% if post.subtitle %}#}
+{#                <h4 class="card-title mb-3">{{ post.subtitle }}</h4>#}
+{#            {% endif %}#}
+{#            <p class="card-text mb-0">#}
+{#                {% if not TRUNCWORDS_COUNT %}#}
+{#                    {% render_model post "abstract" "" "" "safe" %}#}
+{#                {% else %}#}
+{#                    {% render_model post "abstract" "" "" "truncatewords_html:TRUNCWORDS_COUNT|safe" %}#}
+{#                {% endif %}#}
+{#            </p>#}
+{#        </div>#}
+{#        <div class="card-footer p-4 pt-0 bg-transparent border-top-0">#}
+{#            {% block blog_meta %}#}
+{#                {% include "aps_blog/includes/blog_meta.html" %}#}
+{#            {% endblock %}#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+

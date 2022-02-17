@@ -1,0 +1,30 @@
+{% load cms_tags %}
+{% with delay=0.1 %}
+<div class="item item-1 animate  wow fadeInRight"
+     data-wow-delay="{% if instance.step_no == 1 %}{{ delay }}{% else %}.{{ forloop.counter }}{% endif %}s">
+    <div class="line"></div>
+    <div class="circle-wrap">
+        <div class="mask">
+            <div class="wave-pulse wave-pulse-1"></div>
+            <div class="wave-pulse wave-pulse-2"></div>
+            <div class="wave-pulse wave-pulse-3"></div>
+        </div>
+
+        <h6 class="circle">{{ instance.step_no }}</h6>
+    </div>
+
+    <div class="content-wrap">
+
+        <h6 class="heading">{{ instance.step_head }}</h6>
+
+        <div class="text">{{ instance.step_details }}
+        </div>
+        
+        {#        <a class="gradation-btn" href="#">#}
+        {#                                            <span class="button-text" data-text="Look more">#}
+        {#                                        Look more </span>#}
+        {#            <span class="button-icon far fa-long-arrow-right"></span>#}
+        {#        </a>#}
+    </div>
+</div>
+{% endwith %}

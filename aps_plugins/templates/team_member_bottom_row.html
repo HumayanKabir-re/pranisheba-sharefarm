@@ -1,0 +1,29 @@
+{% load thumbnail %}
+<div class="col-lg-3 col-md-6 wow move-up">
+    <div class="grid-item mb-30">
+        <div class="ht-team-member">
+            <div class="team-image">
+                {% if image %}
+                    {% thumbnail image 370x460 crop quality=70 as thumb %}
+                    <img class="img-fluid " src="{{ thumb.url }}" alt="" width="{{ thumb.width }}" height="{{ thumb.height }}" />
+                {% else %}
+                    <img class="img-fluid" src="https://dummyimage.com/370x460/c7d1af/ffffff" alt="">
+                {% endif %}
+                <div class="social-networks">
+                    <div class="inner">
+                        <a target="_blank" href="#" class=" hint--bounce  hint--top hint--theme-two" aria-label="Facebook"><i class="fab fa-facebook"></i>
+                        </a>
+                        <a target="_blank" href="#" class=" hint--bounce hint--top hint--theme-two" aria-label="Twitter"><i class="fab fa-twitter"></i>
+                        </a>
+                        <a target="_blank" href="#" class=" hint--bounce hint--top hint--theme-two" aria-label="Instagram"><i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="team-info text-center">
+                <h6 class="name">{{ name }} </h6>
+                <div class="position">{{ designation }}</div>
+            </div>
+        </div>
+    </div>
+</div>

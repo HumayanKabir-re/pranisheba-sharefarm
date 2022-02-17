@@ -1,0 +1,460 @@
+{% extends 'sharedfarm/base.html' %}
+{% load thumbnail %}
+{% load i18n static cms_tags menu_tags sekizai_tags %}
+{% block sharedfarm_content %}
+
+
+{% block sharedfarm_banner %}
+
+<!--============ Cybersecurity Hero Start ============-->
+<div class="cybersecurity-hero processing-hero-bg__color ">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <!--baseline-->
+            <div class="col-lg-6 col-md-7">
+                <div class="single-button-group cybersecurity-hero-text wow move-up">
+                    {% static_placeholder 'banner_text' or %}
+                        <h6>figure plans out </h6>
+                        <h3 class="font-weight--reguler mb-30">Get insights into the <span
+                                class="text-color-primary">mechanism</span>
+                            & <span class="text-color-primary">prospects</span> of cyber security technology
+                        </h3>
+                    {% endstatic_placeholder %}
+                    <div class="button-group-wrap mt-30 ">
+                        <a href="{% url 'core:login' %}" id="login-btn" class="ht-btn ht-btn-md ht-btn--outline">LOGIN</a>
+                        <a href="{% url 'core:signup' %}" id="signup-btn" class="ht-btn ht-btn-md">REGISTER</a>
+
+                    </div>
+                    <h6 class="mt-30">Download Now</h6>
+                    {% static_placeholder 'app_link' or %}
+                    <div class="button-group-wrap">
+                        <a href="#" target="_blank">
+                            <button class="btn-android"></button>
+                        </a>
+                    </div>
+                    {% endstatic_placeholder %}
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-5">
+                <div class="cybersecurity-hero-images-wrap wow move-up">
+                    <div class="cybersecurity-hero-images section-space--mt_80">
+                        {% static_placeholder 'image_fields' or %}
+                            <div class="inner-img-one">
+                                <img class="img-fluid worldRotate"
+                                     src="{% static "images/bg/mitech-slider-cybersecurity-global-image.png" %}"
+                                     alt="">
+                            </div>
+                            <div class="inner-img-two">
+                                <img class="img-fluid  ml-5 "
+                                     src="{% static "images/bg/slider-cybersecurity-slide-01-image-01.png" %}"
+                                     alt="">
+                            </div>
+                        {% endstatic_placeholder %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--============ Cybersecurity Hero End ============-->
+
+{#        {% include "sharedfarm/plugins/sharedfarm_banner_img.html"  %}#}
+{% endblock %}
+
+{#    <button id="login-btn" class="btn-white mr-3" type="button" name="button">LOGIN</button>#}
+{#    <button id="signup-btn" class="btn-green-register" type="button" name="button">REGISTER</button>#}
+<!--=========== fun fact Wrapper Start ==========-->
+<div class="fun-fact-wrapper bg-theme-default section-space--pt_40">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 wow move-up">
+                <div class="fun-fact--five text-center">
+                    <div class="fun-fact__count">BDT <span class="counter">20</span>M</div>
+                    <h6 class="fun-fact__text">Total Investment</h6>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 wow move-up">
+                <div class="fun-fact--five text-center">
+
+                    {#                        <div class="row">#}
+                    {#                            <div class="col-md-4 fun-fact__count">BDT</div>#}
+                    {#                            <div class="col-md-4">/div>#}
+                    {#                            <div class="col-md-4 fun-fact__count">M</div>#}
+                    {#                        </div>#}
+                    <div class="fun-fact__count">BDT <span class="counter">35</span>M</div>
+                    <h6 class="fun-fact__text">Farm produce</h6>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 wow move-up">
+                <div class="fun-fact--five text-center">
+                    <div class="fun-fact__count">BDT <span class="counter">10</span>M</div>
+                    <h6 class="fun-fact__text">Return for farm funders</h6>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 wow move-up">
+                <div class="fun-fact--five text-center">
+                    <div class="fun-fact__count"><span class="counter">150</span>+</div>
+                    <h6 class="fun-fact__text">Registered Farmers</h6>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--=========== fun fact Wrapper End ==========-->
+
+{% block how_it_works %}
+    {% placeholder 'how_it_works' or %}
+        <!--====================  gradation process area ====================-->
+        <div class="gradation-process-area section-space--ptb_100">
+            <div class="container">
+                {% static_placeholder "how_it_works_head" or %}
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="gradation-title-wrapper section-space--mb_60">
+
+                            <div class="gradation-title-wrap ">
+
+                                    <h6 class="section-sub-title text-black mb-20">How we works</h6>
+                                    <h4 class="heading">How it helps <span class="text-color-primary">your <br> business succeed</span>
+                                    </h4>
+                            </div>
+
+
+                            <div class="gradation-sub-heading">
+                                <h3 class="heading">
+                                    <mark>04</mark>
+                                    Steps
+                                </h3>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ht-gradation style-01">
+                            <!-- Single item gradation Start -->
+                            <div class="item item-1 animate  wow fadeInRight" data-wow-delay="0.1s">
+                                <div class="line"></div>
+                                <div class="circle-wrap">
+                                    <div class="mask">
+                                        <div class="wave-pulse wave-pulse-1"></div>
+                                        <div class="wave-pulse wave-pulse-2"></div>
+                                        <div class="wave-pulse wave-pulse-3"></div>
+                                    </div>
+
+                                    <h6 class="circle">1</h6>
+                                </div>
+
+                                <div class="content-wrap">
+
+                                    <h6 class="heading">01. Discussion</h6>
+
+                                    <div class="text">We meet customers in set place to discuss the details about
+                                        needs and demands before proposing a plan.
+                                    </div>
+
+                                    <a class="gradation-btn" href="#">
+                                            <span class="button-text" data-text="Look more">
+                                        Look more </span>
+                                        <span class="button-icon far fa-long-arrow-right"></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Single item gradation End -->
+
+                            <!-- Single item gradation Start -->
+                            <div class="item item-1 animate  wow fadeInRight" data-wow-delay="0.15s">
+                                <div class="line"></div>
+                                <div class="circle-wrap">
+                                    <div class="mask">
+                                        <div class="wave-pulse wave-pulse-1"></div>
+                                        <div class="wave-pulse wave-pulse-2"></div>
+                                        <div class="wave-pulse wave-pulse-3"></div>
+                                    </div>
+
+                                    <h6 class="circle">2</h6>
+                                </div>
+
+                                <div class="content-wrap">
+
+                                    <h6 class="heading">02. Concepts &amp; Initatives</h6>
+
+                                    <div class="text">Our experts come up with all kinds of ideas and initiatives
+                                        for delivering the best solutions for IT services chosen.
+                                    </div>
+
+                                    <a class="gradation-btn" href="#">
+                                            <span class="button-text" data-text="Look more">
+                                        Look more </span>
+                                        <span class="button-icon far fa-long-arrow-right"></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Single item gradation End -->
+
+                            <!-- Single item gradation Start -->
+                            <div class="item item-1 animate  wow fadeInRight" data-wow-delay="0.20s">
+                                <div class="line"></div>
+                                <div class="circle-wrap">
+                                    <div class="mask">
+                                        <div class="wave-pulse wave-pulse-1"></div>
+                                        <div class="wave-pulse wave-pulse-2"></div>
+                                        <div class="wave-pulse wave-pulse-3"></div>
+                                    </div>
+
+                                    <h6 class="circle">3</h6>
+                                </div>
+
+                                <div class="content-wrap">
+
+                                    <h6 class="heading">03. Testing &amp; Trying</h6>
+
+                                    <div class="text">After agreeing on the ideas and plans, we will conduct as
+                                        scheduled and give comments on the results &amp; adaptations.
+                                    </div>
+
+                                    <a class="gradation-btn" href="#">
+                                            <span class="button-text" data-text="Look more">
+                                        Look more </span>
+                                        <span class="button-icon far fa-long-arrow-right"></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Single item gradation End -->
+
+                            <!-- Single item gradation Start -->
+                            <div class="item item-1 animate wow fadeInRight" data-wow-delay="0.25s">
+                                <div class="line"></div>
+                                <div class="circle-wrap">
+                                    <div class="mask">
+                                        <div class="wave-pulse wave-pulse-1"></div>
+                                        <div class="wave-pulse wave-pulse-2"></div>
+                                        <div class="wave-pulse wave-pulse-3"></div>
+                                    </div>
+
+                                    <h6 class="circle">4</h6>
+                                </div>
+
+                                <div class="content-wrap">
+
+                                    <h6 class="heading">04. Execute &amp; install</h6>
+
+                                    <div class="text">Once the final plan is approved, everything will be conducted
+                                        according to the agreed contract.
+                                    </div>
+
+                                    <a class="gradation-btn" href="#">
+                                            <span class="button-text" data-text="Look more">
+                                        Look more </span>
+                                        <span class="button-icon far fa-long-arrow-right"></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Single item gradation End -->
+                        </div>
+                    </div>
+                </div>
+                {% endstatic_placeholder %}
+            </div>
+        </div>
+        <!--====================  End of gradation process area  ====================-->
+    {% endplaceholder %}
+{% endblock %}
+
+
+<!--===========  Projects wrapper Start =============-->
+<div class="projects-wrapper section-space--ptb_30 projects-masonary-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title-wrap text-center section-space--mb_40">
+                    <h3 class="heading">Proud projects that<span
+                            class="text-color-primary"> make us stand out</span></h3>
+                </div>
+                <div class="messonry-button text-center  section-space--mb_60">
+                    <button data-filter="*" class="is-checked"><span class="filter-text">All</span><span
+                            class="filter-counter">{{ latest_funding_opportunities.count }}</span></button>
+                    <button data-filter=".cat--general"><span class="filter-text">Our Farms</span> <span
+                            class="filter-counter">{{ general_farm_list.count }}</span></button>
+                    <button data-filter=".cat--shariah"><span class="filter-text">Shariah Farms</span> <span
+                            class="filter-counter">{{ shariah_farm_list.count }}</span></button>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="projects-case-wrap">
+            <div class="row mesonry-list">
+                <!--<div class="resizer"></div>-->
+                {% for products in latest_funding_opportunities %}
+                    {% if products.category == 'general' %}
+                        {#                                <div class="col-lg-3 col-md-6 wow move-up">#}
+                        <div class="col-lg-4 col-md-6 cat--{{ products.category }}">
+                            <!-- ht-box-icon Start -->
+                            <a href="{% url 'sharedfarm:detail' products.id %}"
+                               class="ht-large-box-images style-03">
+                                <div class="large-image-box">
+                                    <div class="box-image">
+                                        <div class="default-image">
+                                            <span class="price_tag">
+                                                BDT
+                                            <strong>{{ products.amount }}</strong>
+                                                 per unit
+                                            </span>
+                                            {% if products.image %}
+                                                {% thumbnail products.image 480x298 crop quality=70 upscale as thumb %}
+                                                <img class="img-fluid" src="{{ thumb.url }}"
+                                                     alt="{{ products.name }}"
+                                                     width="{{ thumb.width }}" height="{{ thumb.height }}"/>
+
+                                            {% else %}
+                                                {#                                    {% media_images post as previews %}#}
+                                                <div class="blog-visual">
+                                                    {% for preview in previews %}
+                                                        <img src="{{ preview }}"/>{% endfor %}
+                                                </div>
+                                            {% endif %}
+                                            {% if products.is_active %}
+                                            {% else %}
+                                                <div class="status-tag">Closed</div>
+                                            {% endif %}
+                                            {#                                            <img class="img-fluid" src="assets/images/box-image/blog-01-480x298.jpg"#}
+                                            {#                                                 alt="">#}
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        {#                                        <div class="p-5">#}
+                                        <div class="small text-uppercase fw-bold">
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            {{ products.category }}
+                                        </div>
+                                        <div class="mb-3">
+                                            <h5 class="font-weight--bold">{{ products.name }}</h5>
+                                            <div class="text-muted">
+                                                <i class="bi bi-geo"></i>
+                                                <span class="text-muted">{{ products.location }}</span>
+                                            </div>
+                                        </div>
+                                        <ul class="list-unstyled mb-4">
+                                            <li class="text-black">
+                                                <i class="bi bi-shield-check"></i>
+                                                {{ products.duration }} months contract period
+                                                with {{ products.profit_percentage }}% Return on Funding
+                                            </li>
+                                        </ul>
+
+                                        {#                                        </div>#}
+                                        <div class="box-images-arrow">
+                                            <span class="button-text">Buy now</span>
+                                            <i class="bi bi-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <!-- ht-box-icon End -->
+                        </div>
+
+                    {% elif products.category == 'shariah' %}
+                        <div class="col-lg-4 col-md-6 cat--{{ products.category }}">
+                            <!-- ht-box-icon Start -->
+                            <a href="{% url 'sharedfarm:detail' products.id %}"
+                               class="ht-large-box-images style-03">
+                                <div class="large-image-box">
+                                    <div class="box-image">
+                                        <div class="default-image">
+                                            <span class="price_tag">
+                                                BDT
+                                            <strong>{{ products.amount }}</strong>
+                                                 per unit
+                                            </span>
+                                            {% if products.image %}
+                                                {% thumbnail products.image 480x298 crop quality=70 upscale as thumb %}
+                                                <img class="img-fluid" src="{{ thumb.url }}"
+                                                     alt="{{ products.name }}"
+                                                     width="{{ thumb.width }}" height="{{ thumb.height }}"/>
+
+                                            {% else %}
+                                                {#                                    {% media_images post as previews %}#}
+                                                <div class="blog-visual">
+                                                    {% for preview in previews %}
+                                                        <img src="{{ preview }}"/>{% endfor %}
+                                                </div>
+                                            {% endif %}
+                                            {% if products.is_active %}
+                                            {% else %}
+                                                <div class="status-tag">Closed</div>
+                                            {% endif %}
+                                            {#                                            <img class="img-fluid" src="assets/images/box-image/blog-01-480x298.jpg"#}
+                                            {#                                                 alt="">#}
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        {#                                        <div class="p-5">#}
+                                        <div class="small text-uppercase fw-bold">
+                                            <i class="bi bi-moon-fill text-warning"></i>
+                                            {{ products.category }}
+                                        </div>
+                                        <div class="mb-3">
+                                            <h5 class="font-weight--bold">{{ products.name }}</h5>
+                                            <div class="text-muted">
+                                                <i class="bi bi-geo"></i>
+                                                <span class="text-muted">{{ products.location }}</span>
+                                            </div>
+                                        </div>
+                                        <ul class="list-unstyled mb-4">
+                                            <li class="text-black">
+                                                <i class="bi bi-shield-check"></i>
+                                                {{ products.duration }} months contract period with
+                                                {{ products.shariah_profit_from }}%
+                                                to {{ products.shariah_profit_to }}%
+                                                Profit Sharing
+                                            </li>
+                                        </ul>
+
+                                        {#                                        </div>#}
+                                        <div class="box-images-arrow">
+                                            <span class="button-text">Buy now</span>
+                                            <i class="bi bi-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <!-- ht-box-icon End -->
+                        </div>
+                    {% else %}
+
+                        <p>No farms are available</p>
+                    {% endif %}
+
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--===========  Projects wrapper End =============-->
+
+{#<script type="text/javascript">#}
+{#    window.addEventListener("load", function () {#}
+{#        $(function () {#}
+{#            // Log in button#}
+{#            $("#login-btn").modalForm({#}
+{#                formURL: "{% url 'core:login' %}"#}
+{#            });#}
+{#        });#}
+{#        $(function () {#}
+{#            // Sign up button#}
+{#            $("#signup-btn").modalForm({#}
+{#                formURL: "{% url 'core:signup' %}"#}
+{#            });#}
+{#        });#}
+{##}
+{#    });#}
+{#</script>#}
+{% endblock %}

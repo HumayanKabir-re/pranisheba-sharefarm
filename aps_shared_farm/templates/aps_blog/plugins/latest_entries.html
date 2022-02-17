@@ -1,0 +1,13 @@
+{% load i18n %}
+{#{% spaceless %}#}
+{#<div class="plugin plugin-blog">#}
+{#    <div class="blog-latest-entries">#}
+{#    #}
+{#    </div>#}
+{#</div>#}
+    {% for post in posts_list %}
+        {% include "aps_blog/includes/blog_item.html" with post=post image="true" TRUNCWORDS_COUNT=20 %}
+    {% empty %}
+        <p class="blog-empty">{% trans "No article found." %}</p>
+    {% endfor %}
+{#{% endspaceless %}#}

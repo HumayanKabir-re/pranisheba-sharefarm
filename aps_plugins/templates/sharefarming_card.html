@@ -1,0 +1,22 @@
+
+
+    <div class="card">
+        <div class="card-header" id="heading__{{ instance.id }}">
+            <h5 class="mb-0 font-weight--bold font-size-60">
+
+                <button class="btn-link {% if instance.is_first %}{% else %}collapsed{% endif %}" data-toggle="collapse" data-target="#tab__{{ instance.id }}"
+                        aria-expanded="{% if instance.is_first %}true{% else %}false{% endif %}" aria-controls="tab__{{ instance.id }}"><h3>
+                    {{ instance.title }}</h3><span>
+                                            <i class="far fa-caret-circle-down"></i>
+                                            <i class="far fa-caret-circle-right"></i> </span>
+                </button>
+            </h5>
+        </div>
+
+        <div id="tab__{{ instance.id }}" class="{% if instance.is_first %}show{% else %}collapse{% endif %}" aria-labelledby="heading__{{ instance.id }}"
+             data-parent="#accordion_two">
+            <div class="card-body">
+                <p class="font-size-20">{{ instance.description }}</p>
+            </div>
+        </div>
+    </div>

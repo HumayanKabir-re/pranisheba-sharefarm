@@ -1,0 +1,86 @@
+{% load thumbnail %}
+<!--===========  Our Company History Start =============-->
+
+<div class="our-company-history section-space--ptb_100" id="our-company">
+    <div class="container-fluid">
+        <div class="grid-wrapper">
+            <div class="line line-1"></div>
+            <div class="line line-2"></div>
+            <div class="line line-3"></div>
+            <div class="line line-4"></div>
+        </div>
+
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="faq-custom-col">
+                    <div class="section-title-wrap">
+
+                        {{ instance.description }}
+
+                        <div class="inner-button-box section-space--mt_60">
+                            <a href="{% url 'sharedfarm:index' %}" class="ht-btn ht-btn-md">Find out more</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="rv-video-section">
+
+                    <div class="ht-banner-01 ">
+                        {% if instance.thumb1 %}
+                            {% thumbnail instance.thumb1 310x190 crop quality=70 as thumb %}
+                            <img class="img-fluid border-radus-5 animation_images one wow fadeInDown" src="{{ thumb.url }}" alt="" width="{{ thumb.width }}" height="{{ thumb.height }}" />
+                        {% endif %}
+                    </div>
+
+                    <div class="ht-banner-02">
+                        {% if instance.thumb2 %}
+                            {% thumbnail instance.thumb2 188x115 crop quality=70 as thumb %}
+                            <img class="img-fluid border-radus-5 animation_images one wow fadeInDown" src="{{ thumb.url }}" alt="" width="{{ thumb.width }}" height="{{ thumb.height }}" />
+                        {% endif %}
+                    </div>
+                    <div class="main-video-box video-popup">
+                        <a href="{{ video_url }}" class="video-link  mt-30">
+                            <div class="single-popup-wrap">
+                                {% if instance.Video_thumb %}
+                                    {% thumbnail instance.Video_thumb 570x350 crop quality=70 as thumb %}
+                                    <img class="img-fluid border-radus-5" src="{{ thumb.url }}" alt="" width="{{ thumb.width }}" height="{{ thumb.height }}" />
+                                {% endif %}
+                                <div class="ht-popup-video video-button">
+                                    <div class="video-mark">
+                                        <div class="wave-pulse wave-pulse-1"></div>
+                                        <div class="wave-pulse wave-pulse-2"></div>
+                                    </div>
+                                    <div class="video-button__two">
+                                        <div class="video-play">
+                                            <span class="video-play-icon"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+
+                    <div class="ht-banner-03">
+                        {% if instance.thumb3 %}
+                            {% thumbnail instance.thumb3 188x115 crop quality=70 as thumb %}
+                            <img class="img-fluid border-radus-5 animation_images three wow fadeInDown" src="{{ thumb.url }}" alt="" width="{{ thumb.width }}" height="{{ thumb.height }}" />
+                        {% endif %}
+                    </div>
+
+                    <div class="ht-banner-04">
+                        {% if instance.thumb4 %}
+                            {% thumbnail instance.thumb4 190x190 crop quality=70 as thumb %}
+                            <img class="img-fluid border-radus-5 animation_images four wow fadeInDown" src="{{ thumb.url }}" alt="" width="{{ thumb.width }}" height="{{ thumb.height }}" />
+                        {% endif %}
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--===========  Our Company History Start  End =============-->

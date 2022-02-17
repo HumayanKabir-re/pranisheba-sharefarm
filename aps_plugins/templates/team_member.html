@@ -1,0 +1,13 @@
+{% load thumbnail %}
+
+<div class="col_style-lg-4 mb-5 mb-5 mb-xl-0">
+    <div class="text-center">
+        {% if image %}
+            {% thumbnail image 150x150 crop quality=70 as thumb %}
+            <img class="img-fluid rounded-circle mb-4 px-4" src="{{ thumb.url }}" alt="{{ head }}" width="{{ thumb.width }}" height="{{ thumb.height }}" />
+        {% endif %}
+{#        <img class="img-fluid rounded-circle mb-4 px-4" src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />#}
+        <h5 class="fw-bolder">{{ name }}</h5>
+        <div class="fst-italic text-muted">{{ designation }}</div>
+    </div>
+</div>

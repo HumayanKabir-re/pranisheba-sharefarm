@@ -1,0 +1,36 @@
+{% load thumbnail %}
+<div class="swiper-slide">
+    <div class="testimonial-slider__one wow move-up">
+
+        <div class="testimonial-slider--info">
+            <div class="testimonial-slider__media">
+                {% if image %}
+                    {% thumbnail image 90x90 crop="center" as thumb %}
+
+                    <img class="img-fluid" src="{{ thumb.url }}" alt="{{ head }}" width="{{ thumb.width }}"
+                         height="{{ thumb.height }}"/>
+
+                {% endif %}
+            </div>
+
+            <div class="testimonial-slider__author">
+                <div class="testimonial-rating">
+                    {% with ''|center:rating as range %}
+                        {% for _ in range %}
+
+                            <span class="fa fa-star"></span>
+                        {% endfor %}
+                    {% endwith %}
+                </div>
+                <div class="author-info">
+                    <h6 class="name">{{ name }}</h6>
+                    <span class="designation">{{ designation }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonial-slider__text">{{ description }}
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,29 @@
+{% load djangocms_blog i18n easy_thumbnails_tags thumbnail cms_tags %}
+<div class="col-lg-6">
+    <!-- Single Valid Post Start -->
+    <a class="single-valid-post-wrapper" href="{{ post.get_absolute_url }}">
+        <div class="single-blog__item">
+            {% if image and post.main_image %}
+                {% thumbnail post.main_image 370x120 crop=post.thumbnail_options.crop upscale=post.thumbnail_options.upscale subject_location=post.main_image.subject_location as thumb %}
+                <div class="single-valid__thum bg-img"
+                 data-bg="{{ thumb.url }}">
+            </div>
+
+            {% else %}
+                {% media_images post as previews %}
+                {% for preview in previews %}
+                    <div class="single-valid__thum bg-img"
+                 data-bg="{{ preview }}">
+            </div>
+                {% endfor %}
+            {% endif %}
+
+
+            <div class="post-content">
+                <h6 class="post-title font-weight--bold">{{ post.title }}</h6>
+            </div>
+
+        </div>
+    </a>
+    <!-- Single Valid Post End -->
+</div>

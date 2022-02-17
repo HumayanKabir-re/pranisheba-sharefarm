@@ -1,0 +1,116 @@
+{% load i18n menu_tags static %}
+{% get_language_info for LANGUAGE_CODE as lang %}
+{# DOCS: https://docs.djangoproject.com/en/1.5/topics/i18n/translation/#other-tags #}
+
+{#{% if languages|length > 1 %}#}
+{#    <li class="child lang dropdown">#}
+{#        <a href="{% page_language_url lang.code %}" class="dropdown-toggle"#}
+{#           data-toggle="dropdown"><span>{{ lang.code|language_name_local|title }} <span class="caret"></span></span></a>#}
+{#        <ul class="dropdown-menu" role="menu">#}
+{#            {% for language in languages %}#}
+{##}
+{#                {% if not language.0 == current_language %}#}
+{#                    <li class="child lang"><a href="{% page_language_url language.0 %}"><span>#}
+{##}
+{#                        {{ language.0|language_name_local|title }}</span></a></li>#}
+{#                {% endif %}#}
+{#            {% endfor %}#}
+{#        </ul>#}
+{#    </li>#}
+{#{% endif %}#}
+
+
+{% if languages|length > 1 %}
+
+    <div class="header">
+        <div class="language-toggle-mobile">
+            {% if languages.0.0 == current_language %}
+                <a href="{% page_language_url languages.1.0 %}" class="">
+                    {#                    <img class="ls-flag" src="#}
+                    {#                                            {% if lang.code == 'bn' %}{% static 'images/flags/en.png' %}{% else %} {% static 'images/flags/bn.png' %}{% endif %}"#}
+                    {#                         alt="en"#}
+                    {#                         title="{{ languages.1.0|language_name_local|title }}">#}
+                    <span class="wpml-ls-native">{{ languages.1.0|language_name_local|title }}</span>
+                </a>
+            {% else %}
+                <a href="{% page_language_url languages.0.0 %}" class="">
+                    {#                    <img class="ls-flag" src="#}
+                    {#                                            {% if lang.code == 'bn' %}{% static 'images/flags/en.png' %}{% else %} {% static 'images/flags/bn.png' %}{% endif %}"#}
+                    {#                         alt="bn"#}
+                    {#                         title="{{ languages.0.0|language_name_local|title }}">#}
+                    <span class="wpml-ls-native">{{ languages.0.0|language_name_local|title }}</span>
+                </a>
+
+            {% endif %}
+
+        </div>
+        <div class="language-toggle">
+            {% if languages.0.0 == current_language %}
+                <a href="{% page_language_url languages.1.0 %}" class="">
+{#                    <img class="ls-flag" src="#}
+{#                                            {% if lang.code == 'bn' %}{% static 'images/flags/en.png' %}{% else %} {% static 'images/flags/bn.png' %}{% endif %}"#}
+{#                         alt="en"#}
+{#                         title="{{ languages.1.0|language_name_local|title }}">#}
+                    <span class="wpml-ls-native">{{ languages.1.0|language_name_local|title }}</span>
+                </a>
+            {% else %}
+                <a href="{% page_language_url languages.0.0 %}" class="">
+{#                    <img class="ls-flag" src="#}
+{#                                            {% if lang.code == 'bn' %}{% static 'images/flags/en.png' %}{% else %} {% static 'images/flags/bn.png' %}{% endif %}"#}
+{#                         alt="bn"#}
+{#                         title="{{ languages.0.0|language_name_local|title }}">#}
+                    <span class="wpml-ls-native">{{ languages.0.0|language_name_local|title }}</span>
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    {#        <div class="header-right-inner" id="hidden-icon-wrapper">#}
+
+    <!-- language-menu -->
+{#    <div class="language-menu navigation-menu--text_white">#}
+{#        <ul>#}
+{#            <li>#}
+{#                <a href="{% page_language_url lang.code %}" class="">#}
+{#                    <img class="ls-flag" src="#}
+{#                            {% if lang.code == 'bn' %}{% static 'images/flags/bn.png' %}{% else %} {% static 'images/flags/en.png' %}{% endif %}"#}
+{#                         alt="en"#}
+{#                         title="{{ lang.code|language_name_local|title }}">#}
+{#                    <span class="wpml-ls-native">{{ lang.code|language_name_local|title }}</span>#}
+{#                </a>#}
+{##}
+{#                <ul class="ls-sub-menu">#}
+{#                    {% for language in languages %}#}
+{#                        {% if not language.0 == current_language %}#}
+{#                            <li class="">#}
+{##}
+{#                                <a href="{% page_language_url language.0 %}" class="">#}
+{#                                    <img class="ls-flag" src="#}
+{#                                            {% if language.0 == 'bn' %}{% static 'images/flags/bn.png' %}{% else %} {% static 'images/flags/en.png' %}{% endif %}"#}
+{#                                         alt="en"#}
+{#                                         title="{{ language.0|language_name_local|title }}">#}
+{#                                    <span class="wpml-ls-native">{{ language.0|language_name_local|title }}</span>#}
+{#                                </a>#}
+{#                            </li>#}
+{##}
+{#                        {% endif %}#}
+{#                    {% endfor %}#}
+{##}
+{##}
+{#                </ul>#}
+{##}
+{#            </li>#}
+{##}
+{#        </ul>#}
+{#    </div>#}
+
+    <!-- header-search-form -->
+
+    {#        </div>#}
+
+
+    </div>
+{% endif %}

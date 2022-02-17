@@ -1,0 +1,201 @@
+{% extends 'sharedfarm/base.html' %}
+{% load i18n l10n static widget_tweaks sekizai_tags thumbnail my_filters%}
+{% block sharedfarm_content %}
+    {#    <h1>{{ view.config.title }}</h1>#}
+    {#    <p>Namespace: {{ view.namespace }}</p>#}
+    {#    {% url 'sharedfarm:detail' product.id %}#}
+{#    {{ product.faq.faq_category.all }}#}
+    <section class="py-5">
+        <div class="container px-5">
+            <div class="row gx-5">
+                <div class="col-lg-6">
+
+                    <div class="bg-featured-blog"
+                    {% if product.image %}
+                        {% thumbnail product.image 400x0 crop=smart quality=85 upscale as thumb %}
+                         style="background-image: url('{{ thumb.url }}')">
+
+                    {% else %}
+                        style="background-image: url('https://dummyimage.com/400x200/7fb087/ffffff.jpg')">
+                    {% endif %}
+{#                         style="background-image: url('{{ product.image.url }}')">#}
+                        <div class="card-img">
+                            {% if product.is_active %}
+
+                            {% else %}
+                                <div class="status-tag">Closed</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-6 ">
+                    <div class="card border-0 shadow rounded-3 overflow-hidden">
+                        <div class="card-body p-0">
+                            <div class="p-4 p-md-5">
+                                <div class="small text-uppercase fw-bold">
+                                    {% if product.category == "general" %}
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        {{ product.category }}
+                                    {% else %}
+                                        <i class="bi bi-moon-fill text-warning"></i>
+                                        {{ product.category }}
+                                    {% endif %}
+                                </div>
+                                <div class="title fw-bolder">{{ product.name }}</div>
+                                <div class="price"><strong>{{product.amount |unlocalize| currency }}</strong>/unit</div>
+                                <div class="text-muted location">{{ product.location }}</div>
+
+                                <div class="stat-section">
+                                    <div class="stat-head">
+                                        <div>Duration</div>
+                                        {% if product.category == "general" %}
+                                            <div>Return</div>
+                                            <div>Net Profit</div>
+                                        {% else %}
+                                            <div>Profit sharing</div>
+                                        {% endif %}
+
+                                    </div>
+                                    <div class="stat-body">
+                                        <div>{{ product.duration }} Months</div>
+                                        {% if product.category == "general" %}
+                                            <div>{{ product.profit_percentage }} %</div>
+                                            <div>{{ product.get_net_profit }}</div>
+                                        {% else %}
+                                            <div>{{ product.shariah_profit_from }}%
+                                                to {{ product.shariah_profit_to }}%
+                                            </div>
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                                <hr class="stat-hr">
+
+                                <form class="buy-input-section" id="order" action="{% url 'sharedfarm:checkout' product_id=product.id %}"
+                                      accept-charset="UTF-8" method="post">
+                                    {% csrf_token %}
+{#                                    <input name="utf8" type="hidden"#}
+{#                                                                                  value="✓"><input type="hidden"#}
+{#                                                                                                   name="authenticity_token"#}
+{#                                                                                                   value="CdzfGHs27fgmJ6734CAlvx7p5PwR8hPM+jU5RriwlHxbAvDAJjsdZG88R90xWqZvTZRkaaujKKaMizizXOUxoQ==">#}
+{#                                    <input type="hidden" name="cat_id" id="cat_id" value="158">#}
+                                    <div class="buy-input">
+                                        <input type="number" name="cow_quantity" id="validateInput" value=""
+                                               class="form-control" placeholder="Unit" min="1" max="4"
+                                               autofocus="autofocus" required="required">
+                                    </div>
+                                    {#                                    <div class="d-grid"><a class="btn btn-bordered-what-do " href="{% url 'sharedfarm:detail' products.id %}">Buy Now</a></div>#}
+                                    <div class="buy-btn">
+                                        {% if product.is_active %}
+                                            <button name="button" type="submit" class="btn-green gtm-track-buy-now">
+                                                Buy Now
+                                            </button>
+                                        {% else %}
+                                            <button name="button" type="submit" class="btn-grey gtm-track-buy-now"
+                                                    disabled>
+                                                Buy Now
+                                            </button>
+                                        {% endif %}
+                                    </div>
+                                    <div class="sharemax">
+                                        <p>&nbsp;**maximum <strong>4 units</strong></p>
+                                        <p>&nbsp;**remaining <strong>{{ product.get_available_number_of_cows }} units</strong></p>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-5">
+        <div class="container px-5">
+            <div class="row_style gx-0">
+                <div class="card border-0 shadow rounded-3 overflow-hidden">
+                    <ul class="nav nav-tabs  nav-justified" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab"
+                               aria-controls="details" aria-selected="true">Details</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="how-it-works-tab" data-toggle="tab" href="#how-it-works" role="tab"
+                               aria-controls="how-it-works" aria-selected="false">How It Works</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="faq-tab" data-toggle="tab" href="#faq" role="tab"
+                               aria-controls="faq" aria-selected="false">FAQ</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane active" id="details" role="tabpanel" aria-labelledby="details-tab">
+                            <div class="p-4 p-md-5">
+                                <table class="table table-bordered text-center">
+                                    <tbody>
+                                    <tr>
+                                        <td>Breed</td>
+                                        <td>{{ product.breed }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Gender</td>
+                                        <td>{{ product.gender }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Average Weight</td>
+                                        <td>{{ product.average_weight }} KG</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sourced From</td>
+                                        <td>{{ product.source }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Location</td>
+                                        <td>{{ product.location }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Growth Timeline</td>
+                                        <td>{{ product.growth_timeline }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <p>{{ product.details }}</p>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="how-it-works" role="tabpanel" aria-labelledby="how-it-works-tab">
+                            ...
+                        </div>
+                        <div class="tab-pane fade" id="faq" role="tabpanel" aria-labelledby="faq-tab">
+                            <div class="p-4 p-md-5">
+                                <div class="faq-wrapper  section-space--mt_40">
+                                    <div id="accordion">
+                                        {% for faq_item in product.faq.faq_category.all %}
+                                        <div class="card">
+                                            <div class="card-header" id="heading{{ forloop.counter }}">
+                                                <h5 class="mb-0">
+                                                    <button class="btn-link collapsed" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
+                                                        {{ faq_item.question }}<span> <i class="fas fa-chevron-down"></i>
+                                            <i class="fas fa-chevron-up"></i> </span>
+                                                    </button>
+                                                </h5>
+                                            </div>
+                                            <div id="collapse{{ forloop.counter }}" class="collapse" aria-labelledby="heading{{ forloop.counter }}" data-parent="#accordion">
+                                                <div class="card-body">
+                                                    <p>{{ faq_item.answer }} </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

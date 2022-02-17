@@ -1,0 +1,5 @@
+[client]
+database = aps_db
+host = db
+user = aps_sharedfarm
+password = aps_sharedfarm_pass

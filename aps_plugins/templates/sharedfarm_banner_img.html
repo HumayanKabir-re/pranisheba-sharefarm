@@ -1,0 +1,20 @@
+{% load thumbnail cms_tags%}
+<!--============ Cybersecurity Hero Start ============-->
+<div class="inner-img-one">
+    {% if rotate_img %}
+        {% thumbnail rotate_img crop quality=70 as thumb %}
+        <img class="img-fluid worldRotate"
+             src="{{ rotate_img.url }}" alt="" width="{{ thumb.width }}"
+             height="{{ thumb.height }}"/>
+    {% endif %}
+
+</div>
+<div class="inner-img-two">
+    {% if front_img %}
+        {% thumbnail front_img crop quality=70 as thumb %}
+        <img class="img-fluid ml-5"
+             src="{{ front_img.url }}" alt="" width="{{ thumb.width }}"
+             height="{{ thumb.height }}"/>
+    {% endif %}
+
+</div>

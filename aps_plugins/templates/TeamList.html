@@ -1,0 +1,9 @@
+{% load cms_tags %}
+<div class="col-lg-3 col-md-6 team_member-list mb-30">
+    <h6 class="team__title mb-20">{{ name }}</h6>
+    <ul class="footer-widget__list">
+        {% for plugin in instance.child_plugin_instances %}
+            {% render_plugin plugin %}
+        {% endfor %}
+    </ul>
+</div>

@@ -1,0 +1,34 @@
+{% load cms_tags thumbnail %}
+<div class="accordion-wrapper section-space--pb_100" id="how-we-works">
+    <div class="container">
+        <div class="row ">
+            <div class="col-lg-6 pr-5">
+                <div class="faq-two-wrapper section-space--mt_40">
+                    <div id="accordion_two">
+                        <h6 class="section-sub-title mb-20">How Jouthokhamar Works</h6>
+{#                        <div class="plugin parent">#}
+                            {% for plugin in instance.child_plugin_instances %}
+                                {% render_plugin plugin %}
+                            {% endfor %}
+{#                        </div>#}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <!-- Start single-popup-wrap -->
+                <div class="section-space--mt_70 ">
+
+                    {% if instance.image %}
+{#                        {% thumbnail image crop quality=70 as thumb %}#}
+                        <img class="img-fluid border-radus-5" src="{{ instance.image.url }}" alt=""/>
+                    {% endif %}
+{#                    <img class="img-fluid border-radus-5"#}
+{#                         src="{% static "assets/Contract Farming Life Cycle-1.png" %}" alt="">#}
+
+                </div>
+                <!-- End single-popup-wrap -->
+            </div>
+        </div>
+    </div>
+</div>

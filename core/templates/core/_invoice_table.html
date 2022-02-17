@@ -1,0 +1,63 @@
+{% load i18n static widget_tweaks sekizai_tags thumbnail %}
+<table id="books-table" class="table">
+    <thead>
+    <tr>
+        <th class="text-center" scope="col">#</th>
+        <th class="text-center" scope="col">Farm Details</th>
+        <th class="text-center" scope="col">Farm Type</th>
+        <th class="text-center" scope="col">Price (৳)</th>
+        <th class="text-center" scope="col">Unit</th>
+        <th class="text-center" scope="col">Total (৳)</th>
+        <th class="text-center" scope="col">Investment date</th>
+        <th class="text-center" scope="col">Status</th>
+        <th class="text-center" scope="col">Details</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for invoice in invoices %}
+        <tr>
+            <th class="text-center" scope="row">{{ forloop.counter }}</th>
+            <td class="text-center">
+                <div class="title fw-bolder">{{ invoice.product.name }}</div>
+                <div class="text-muted">{{ invoice.product.breed }} ({{ invoice.product.gender }})</div>
+                <div class="text-muted">{{ invoice.product.location }}</div>
+            </td>
+            {#      <td class="text-center">{{ book.author }}</td>#}
+            <td class="text-center">
+                {% if invoice.product.category == "general" %}
+                    <i class="bi bi-star-fill text-warning"></i>
+                    {{ invoice.product.category }}
+                {% else %}
+                    <i class="bi bi-moon-fill text-warning"></i>
+                    {{ invoice.product.category }}
+                {% endif %}</td>
+            <td class="text-center">{{ invoice.product.amount }}</td>
+            <td class="text-center">{{ invoice.unit }}</td>
+            <td class="text-center">{{ invoice.amount }}</td>
+            <td class="text-center">{{ invoice.timestamp }}</td>
+            <td class="text-center">
+                {% if invoice.is_paid %}
+                    Invested
+                {% else %}
+                    Pending
+                {% endif %}
+            </td>
+            <td class="text-center">
+                <!-- Read book buttons -->
+                        <button type="button" class="read-farm btn btn-sm btn-primary" data-form-url="{% url 'core:read_farm' invoice.pk %}">
+                          <span class="fa fa-eye"></span>
+                        </button>
+{#                        <!-- Update book buttons -->#}
+{#                        <button type="button" class="update-book btn btn-sm btn-primary" data-form-url="{% url 'update_book' book.pk %}">#}
+{#                          <span class="fa fa-pencil"></span>#}
+{#                        </button>#}
+{#                        <!-- Delete book buttons -->#}
+{#                        <button type="button" class="delete-book btn btn-sm btn-danger" data-form-url="{% url 'delete_book' book.pk %}">#}
+{#                          <span class="fa fa-trash"></span>#}
+{#                        </button>#}
+            </td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table>

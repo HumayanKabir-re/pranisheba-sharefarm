@@ -1,0 +1,110 @@
+{% load i18n static widget_tweaks sekizai_tags %}
+
+{% addtoblock "js" %}
+    <script src="{% static 'js/scripts.js' %}"></script>{% endaddtoblock %}
+{#{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'contacts/css/styles.css' %}">{% endaddtoblock %}#}
+<!--========== Call to Action Area Start ============-->
+<div class="cta-image-area_one section-space--ptb_80 cta-bg-image_one">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-xl-8 col-lg-7">
+                <div class="cta-content md-text-center">
+                    <h3 class="heading text-white">New Farms, delivered to you. subscribe<span class="text-color-secondary"> for our newsletter and latest updates.</span></h3>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-5">
+                <div class="container">
+
+                    <div class="row row--10">
+                        <div class="contacts-plugin plugin">
+                            <form method="post" action="{{ form_action }}">
+                                {% csrf_token %}
+                                {% for hidden in form.hidden_fields %}
+                                    {% if hidden.name == 'referer' %}
+                                        <input type="hidden" name="{{ hidden.name }}" value="{{ hidden.value }}">
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% for visible in form.visible_fields %}
+                                    <div class="field-wrapper field-row half {{ visible.css_classes }}">
+                                        <div class="error empty text-white"></div>
+                                        <div class="contact-inner">
+
+                                            {% render_field visible class="form-control" placeholder=visible.help_text %}
+
+
+
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                <input class="ht-btn ht-btn-md ht-btn-full" type="submit" value="Subscribe">
+
+
+
+                            </form>
+                            <div class="success text-white" style="display:none">Thank you, a member of our team will contact you shortly, if
+                                appropriate.
+                            </div>
+                            <div class="errors" style="display:none"><span class="form-errors"></span></div>
+
+                        </div>
+{#                        <div class="modern-it-newsletters-wrap text-center mt-40">#}
+{#                            <div class="section-title">#}
+{#                                <h6 class="heading mb-30">subscribe for our newsletter for the latest updates.</h6>#}
+{#                            </div>#}
+
+
+{#                        </div>#}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--========== Call to Action Area End ============-->
+
+{#<aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5">#}
+{#    <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">#}
+{#        <div class="mb-4 mb-xl-0">#}
+{#            <div class="fs-3 fw-bold text-white">New Farms, delivered to you.</div>#}
+{#            <div class="text-white-50">subscribe for our newsletter for the latest updates.</div>#}
+{#        </div>#}
+{#        <div class="ms-xl-4">#}
+{##}
+{#            <div class="contacts-plugin plugin">#}
+{#                <form method="post" action="{{ form_action }}">#}
+{#                    {% csrf_token %}#}
+{#                    {% for hidden in form.hidden_fields %}#}
+{#                        {% if hidden.name == 'referer' %}#}
+{#                            <input type="hidden" name="{{ hidden.name }}" value="{{ hidden.value }}">#}
+{#                        {% endif %}#}
+{#                    {% endfor %}#}
+{##}
+{#                    {% for visible in form.visible_fields %}#}
+{#                        <div class="field-wrapper field-row half {{ visible.css_classes }}">#}
+{#                            <div class="error empty"></div>#}
+{#                            <div class="style_input-group mb-2">#}
+{##}
+{#                                {% render_field visible class="style_form-control" placeholder=visible.help_text %}#}
+{##}
+{##}
+{#                                <input class="btn btn-outline-light" type="submit" value="Subscribe">#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    {% endfor %}#}
+{##}
+{##}
+{#                </form>#}
+{#                <div class="success" style="display:none">Thank you, a member of our team will contact you shortly, if#}
+{#                    appropriate.#}
+{#                </div>#}
+{#                <div class="errors" style="display:none"><span class="form-errors"></span></div>#}
+{##}
+{#            </div>#}
+{##}
+{#            <div class="small text-white-50">We care about privacy, and will never share your data.#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</aside>#}

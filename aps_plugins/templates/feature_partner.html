@@ -1,0 +1,12 @@
+<div class="brand-logo brand-logo--slider">
+    <a href="{% if url %} {{ url }} {% else %} #{% endif %}" target="_blank">
+        <div class="brand-logo__image">
+            <img src="{{ logo.url }}"
+                 class="img-fluid" alt="">
+        </div>
+        <div class="brand-logo__image-hover">
+            <img src="{{ hover_logo.url }}"
+                 class="img-fluid" alt="">
+        </div>
+    </a>
+</div>

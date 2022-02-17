@@ -1,0 +1,24 @@
+{% load thumbnail %}
+<section class="py-5 bg-light" id="scroll-target">
+    <div class="container_style px-5 my-5">
+        <div class="row_style gx-5 align-items-center">
+            <div class="col_style-lg-6">
+                {% if image %}
+                    {% thumbnail image 600x400 crop quality=70 as thumb %}
+                    {#                <img class="card-img-top" src="{{ post.main_image.url }}" alt="{{ post.main_image.default_alt_text }}"/>#}
+                    {#                {% thumbnail post.main_image post.thumbnail_options.size crop=post.thumbnail_options.crop upscale=post.thumbnail_options.upscale subject_location=post.main_image.subject_location as thumb %}#}
+                    <img class="img-fluid rounded mb-5 mb-lg-0" src="{{ thumb.url }}" alt="{{ head }}" width="{{ thumb.width }}" height="{{ thumb.height }}" />
+                {% endif %}
+{#                <img class="img-fluid rounded mb-5 mb-lg-0" src="{{ image.url }}" alt="{{ head }}" />#}
+            </div>
+            <div class="col_style-lg-6">
+                <h2 class="fw-bolder">{{ head }}</h2>
+                <p class="text-justify fw-normal text-muted mb-0">{{ description }}</p>
+                <div class="landing-banner-btns-what-do">
+                    <a class="btn btn-bordered-what-do vdo-btn" href="/individual">Fund Farms</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
