@@ -14,6 +14,7 @@ from aldryn_apphooks_config.fields import AppHookConfigField
 import uuid
 from django.contrib.auth import get_user_model
 from .config import PayStatus
+from core.models import UserFcmToken
 
 User = get_user_model()
 
@@ -144,11 +145,11 @@ class Product(TimeStampedModel):
                                             validators=[MinValueValidator(1), MaxValueValidator(100)],
                                             help_text=" Please enter the profit return percentage", null=True,
                                             blank=True)
-    shariah_profit_from = models.DecimalField('shariah_profit_from', max_digits=5, decimal_places=2,
-                                              validators=[MinValueValidator(1), MaxValueValidator(100)],
-                                              help_text=" Please enter the probable least profit return percentage ",
-                                              null=True,
-                                              blank=True)
+    # shariah_profit_from = models.DecimalField('shariah_profit_from', max_digits=5, decimal_places=2,
+    #                                           validators=[MinValueValidator(1), MaxValueValidator(100)],
+    #                                           help_text=" Please enter the probable least profit return percentage ",
+    #                                           null=True,
+    #                                           blank=True)
     shariah_profit_to = models.DecimalField('shariah_profit_to', max_digits=5, decimal_places=2,
                                             validators=[MinValueValidator(1), MaxValueValidator(100)],
                                             help_text=" Please enter the probable max profit return percentage ",
@@ -178,7 +179,7 @@ class Product(TimeStampedModel):
     def get_offering_display(self):
         # self.get_expired_date()
         if self.category == FundCategory.SHARIAH:
-            return f"{self.duration} months contract period with {self.shariah_profit_from}% to {self.shariah_profit_to} % Profit Sharing"
+            return f"{self.duration} months contract period with upto {self.shariah_profit_to} % Profit Sharing" #{self.shariah_profit_from}% to
 
         else:
             return f"{self.duration} months contract period with {self.profit_percentage}% Return on Funding"
@@ -207,6 +208,9 @@ class Product(TimeStampedModel):
                 [each_invoice.unit for each_invoice in self.invoice_product.filter(is_paid=True)])
         else:
             return 0
+
+    def calculate_total(self, unit):
+        return unit * self.amount
 
         # def get_absolute_url(self, lang=None):
     #     lang = _get_language(self, lang)
@@ -370,17 +374,25 @@ class HowWeWorkStepItem(CMSPlugin):
         return f"{self.step_no}"
 
 
-'''
-class PolicyHead(ck_CMSPlugin):
-    myfield = HTMLField(null=True, blank=True, configuration="BLOG_POST_TEXT_CKEDITOR")
-    number_of_steps = models.CharField(max_length=100, null=True, blank=True)
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+from .tasks import fcm_notify
+import json
 
 
-class PolicyStepItem(CMSPlugin):
-    step_no = models.PositiveIntegerField(null=True, blank=True, )
-    step_head = models.CharField(max_length=200, null=True, blank=True)
-    step_details = models.TextField()
-
-    def __str__(self):
-        return f"{self.step_no}"
-'''
+#@receiver(post_save, sender=Product)
+def new_product_fcm_signal(sender, instance, created, **kwargs):
+    if created:
+        all_list = UserFcmToken.objects.all().values_list('fcm_token', flat=True)
+        receiver_list = list(all_list)
+        data_message = {
+            "id": instance.id,
+            "name": instance.name,
+            "category": instance.category,
+            "duration": instance.duration,
+            "amount": instance.amount
+        }
+        fcm_notify.apply_async(
+            args=(receiver_list, data_message),
+            countdown=1, expires=10
+        )  # task will be executed after 'storing the event data'

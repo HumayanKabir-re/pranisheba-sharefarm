@@ -862,6 +862,10 @@ a:focus, a:hover {
     color: #89817e;
 }
 
+.bio-graph-info-black {     /* NEW, Added for Profile View for clearer texts - 27/03/20222 */
+    color: #000000;
+}
+
 .bio-graph-info h1 {
     font-size: 22px;
     font-weight: 300;
@@ -1198,6 +1202,42 @@ a:active {
     background-color: transparent;
 }
 
+/* Toggle Password Section for Password Change */
+
+.current-toggle-Password {
+    cursor: pointer;
+    position: absolute;
+    top: 34%;
+    right: 5%;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background-color: transparent;
+}
+
+.change-toggle-Password1 {
+    cursor: pointer;
+    position: absolute;
+    top: 54%;
+    right: 5%;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background-color: transparent;
+}
+
+.change-toggle-Password2 {
+    cursor: pointer;
+    position: absolute;
+    top: 71%;
+    right: 5%;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background-color: transparent;
+}
+
+
 /*language style css classes starts here*/
 
 /***********************
@@ -1527,4 +1567,77 @@ tl-item.active .tl-dot:before {
 
 .b-danger {
     border-color: #f54394 !important
+}
+
+
+
+.wrapper{
+    display: inline-flex;
+    /*background: #fff;*/
+    height: 100px;
+    width: 400px;
+    align-items: center;
+    justify-content: space-evenly;
+    /*border-radius: 5px;*/
+    padding: 20px 15px;
+    /*box-shadow: 5px 5px 30px rgba(0,0,0,0.2);*/
+}
+.wrapper .option{
+    background: #fff;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0 10px;
+    border: 2px solid lightgrey;
+    transition: all 0.3s ease;
+}
+.wrapper .option .dot{
+    height: 20px;
+    width: 20px;
+    background: #d9d9d9;
+    border-radius: 50%;
+    position: relative;
+}
+.wrapper .option .dot::before{
+    position: absolute;
+    content: "";
+    top: 4px;
+    left: 4px;
+    width: 12px;
+    height: 12px;
+    background: #3a6d2f;
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(1.5);
+    transition: all 0.3s ease;
+}
+input[type="radio"]{
+    display: none;
+}
+#id_confirmation-paymentOption_0:checked:checked ~ .id_confirmation-paymentOption_0,
+#id_confirmation-paymentOption_1:checked:checked ~ .id_confirmation-paymentOption_1{
+    border-color: #3a6d2f;
+    background: #3a6d2f;
+}
+#id_confirmation-paymentOption_0:checked:checked ~ .id_confirmation-paymentOption_0 .dot,
+#id_confirmation-paymentOption_1:checked:checked ~ .id_confirmation-paymentOption_1 .dot{
+    background: #fff;
+}
+#id_confirmation-paymentOption_0:checked:checked ~ .id_confirmation-paymentOption_0 .dot::before,
+#id_confirmation-paymentOption_1:checked:checked ~ .id_confirmation-paymentOption_1 .dot::before{
+    opacity: 1;
+    transform: scale(1);
+}
+.wrapper .option span{
+    font-size: 20px;
+    color: #808080;
+}
+#id_confirmation-paymentOption_0:checked:checked ~ .id_confirmation-paymentOption_0 span,
+#id_confirmation-paymentOption_1:checked:checked ~ .id_confirmation-paymentOption_1 span{
+    color: #fff;
 }

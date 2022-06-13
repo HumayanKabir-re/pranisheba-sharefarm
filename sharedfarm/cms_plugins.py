@@ -80,7 +80,6 @@ class HowWeWorkStepItemPlugin(CMSPluginBase):
         return context
 
 
-
 plugin_pool.register_plugin(MyTextPlugin)
 plugin_pool.register_plugin(HowWeWorkHeadPlugin)
 plugin_pool.register_plugin(HowWeWorkStepItemPlugin)

@@ -39,8 +39,10 @@
                     <div>{{ invoice.product.profit_percentage }} %</div>
                     <div>{{ invoice.product.get_net_profit }}</div>
                 {% else %}
-                    <div>{{ invoice.product.shariah_profit_from }}%
-                        to {{ invoice.product.shariah_profit_to }}%
+                    <div>
+                        {% comment %} {{ invoice.product.shariah_profit_from }}%
+                        to  {% endcomment %}
+                        {{ invoice.product.shariah_profit_to }}%
                     </div>
                 {% endif %}
 
@@ -126,47 +128,11 @@
                             </div>
                         </div>
                         {% endif %}
-{#                        <div class="tl-item">#}
-{#                            <div class="tl-dot b-primary"></div>#}
-{#                            <div class="tl-content">#}
-{#                                <div class="">Do you know how Google search works.</div>#}
-{#                                <div class="tl-date text-muted mt-1">45 minutes ago</div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="tl-item">#}
-{#                            <div class="tl-dot b-danger"></div>#}
-{#                            <div class="tl-content">#}
-{#                                <div class="">Thanks to <a href="#" data-abc="true">@apple</a>, for iphone 7</div>#}
-{#                                <div class="tl-date text-muted mt-1">1 day ago</div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="tl-item">#}
-{#                            <div class="tl-dot b-danger"></div>#}
-{#                            <div class="tl-content">#}
-{#                                <div class="">Order placed <a href="#" data-abc="true">@eBay</a> you will get your products</div>#}
-{#                                <div class="tl-date text-muted mt-1">1 Week ago</div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="tl-item">#}
-{#                            <div class="tl-dot b-warning"></div>#}
-{#                            <div class="tl-content">#}
-{#                                <div class="">Learn how to use <a href="#" data-abc="true">Google Analytics</a> to discover vital information about your readers.</div>#}
-{#                                <div class="tl-date text-muted mt-1">3 days ago</div>#}
-{#                            </div>#}
-{#                        </div>#}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-{#    <div class="">#}
-{#        Title:#}
-{#        {{ invoice.product.name }}#}
-{#    </div>#}
-{#    <div class="">#}
-{#        Author:#}
-{#        {{ invoice.get_farm_mature_date }}#}
-{#    </div>#}
 
 </div>
 

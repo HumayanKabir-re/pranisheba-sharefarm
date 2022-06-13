@@ -92,11 +92,17 @@ const signUpTogglePassword = document.querySelector('#signUpTogglePassword1');
 const signUpTogglePassword1 = document.querySelector('#signUpTogglePassword2');
 const resetTogglePassword1 = document.querySelector('#resetTogglePassword1');
 const resetTogglePassword2 = document.querySelector('#resetTogglePassword2');
+const currentTogglePassword = document.querySelector('#currentTogglePassword'); // NEW, Added on 20/04/2022, for Current Password Field
+const changeToggglePassword1 = document.querySelector('#changeToggglePassword1')
+const changeToggglePassword2 = document.querySelector('#changeToggglePassword2')
 const password = document.querySelector('#id_password');
 const password1 = document.querySelector('#id_password1');
 const password2 = document.querySelector('#id_password2');
 const resetPassword1 = document.querySelector('#id_new_password1');
 const resetPassword2 = document.querySelector('#id_new_password2');
+const currentPassword = document.querySelector('#id_current_password'); // NEW, Added on 20/04/2022, for Current Password Field
+const changePassword1 = document.querySelector('#id_change_password1');
+const changePassword2 = document.querySelector('#id_change_password2');
 document.body.addEventListener('click', event => {
     if (event.target === togglePassword) {
         const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -165,6 +171,48 @@ document.body.addEventListener('click', event => {
         } else {
             resetTogglePassword2.classList.toggle('fa-eye', false);
             resetTogglePassword2.classList.toggle('fa-eye-slash', true);
+        }
+    }
+    else if (event.target === currentTogglePassword) {
+        // toggle the type attribute
+        const type = currentPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+
+        currentPassword.setAttribute('type', type);
+        // toggle the eye / eye slash icon
+        if (currentTogglePassword.classList.contains("fa-eye-slash")) {
+            currentTogglePassword.classList.toggle('fa-eye', true);
+            currentTogglePassword.classList.toggle('fa-eye-slash', false);
+        } else {
+            currentTogglePassword.classList.toggle('fa-eye', false);
+            currentTogglePassword.classList.toggle('fa-eye-slash', true);
+        }
+    }
+    else if (event.target === changeToggglePassword1) {
+        // toggle the type attribute
+        const type = changePassword1.getAttribute('type') === 'password' ? 'text' : 'password';
+
+        changePassword1.setAttribute('type', type);
+        // toggle the eye / eye slash icon
+        if (changeToggglePassword1.classList.contains("fa-eye-slash")) {
+            changeToggglePassword1.classList.toggle('fa-eye', true);
+            changeToggglePassword1.classList.toggle('fa-eye-slash', false);
+        } else {
+            changeToggglePassword1.classList.toggle('fa-eye', false);
+            changeToggglePassword1.classList.toggle('fa-eye-slash', true);
+        }
+    }
+    else if (event.target === changeToggglePassword2) {
+        // toggle the type attribute
+        const type = changePassword2.getAttribute('type') === 'password' ? 'text' : 'password';
+
+        changePassword2.setAttribute('type', type);
+        // toggle the eye / eye slash icon
+        if (changeToggglePassword2.classList.contains("fa-eye-slash")) {
+            changeToggglePassword2.classList.toggle('fa-eye', true);
+            changeToggglePassword2.classList.toggle('fa-eye-slash', false);
+        } else {
+            changeToggglePassword2.classList.toggle('fa-eye', false);
+            changeToggglePassword2.classList.toggle('fa-eye-slash', true);
         }
     }
     else {

@@ -2,6 +2,29 @@
 {% load i18n static widget_tweaks sekizai_tags thumbnail%}
 {% block profile_content %}
 
+    <!--=========== Breadcrumb Starts ==========-->
+    {% block breadcrumbs %}
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_box text-left">
+
+                        <!-- breadcrumb-list start -->
+                        <ul class="breadcrumb-list">
+                            <li class="breadcrumb-item"><a href="{% url 'core:profile' %}">{% translate 'Profile' %}</a>
+                            </li>
+                            <li class="breadcrumb-item active">{% translate 'My Farms' %}</li>
+
+
+                        </ul>
+                        <!-- breadcrumb-list end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    <!--=========== Breadcrumb Ends ==========-->
+
     <!--=========== fun fact Wrapper Start ==========-->
     <div class="fun-fact-wrapper bg-gray section-space--pb_30 section-space--pt_60">
         <div class="container">
@@ -89,7 +112,6 @@
 {% block extrascripts %}
     <script type="text/javascript">
         $(function () {
-
 
             // Read book buttons
             function readBookModalForm() {

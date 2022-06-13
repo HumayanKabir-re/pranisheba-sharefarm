@@ -1,0 +1,69 @@
+{% load cms_tags %}
+{% load i18n static cms_tags menu_tags sekizai_tags%}
+
+
+
+{% if linkType == "internal" and icon == null %}
+
+    <li><a href="{% page_url link %}" class="hover-style-link">{{linkName}}</a></li>
+    
+{% elif linkType == "external" and icon == null %}
+
+    <li><a href="{{link}}" class="hover-style-link">{{linkName}}</a></li>
+
+{% elif linkType == "nolink" and icon == null %}
+
+    <li><a href="#" class="hover-style-link">{{linkName}}</a></li>
+
+{% elif icon == "facebook" and location == "footer" %}
+    <li class="item">
+        <a href="{{link}}" target="_blank" aria-label="Facebook" class="social-link hint--bounce hint--top hint--primary">
+            <i class="fab fa-facebook link-icon"></i>
+        </a>
+    </li>
+{% elif icon == "instagram" and location == "footer" %}
+    <li class="item">
+        <a href="{{link}}" target="_blank" aria-label="Instagram" class="social-link hint--bounce hint--top hint--primary">
+            <i class="fab fa-instagram link-icon"></i>
+        </a>
+    </li>
+
+{% elif icon == "twitter" and location == "footer" %}
+    <li class="item">
+        <a href="{{link}}" target="_blank" aria-label="Twitter" class="social-link hint--bounce hint--top hint--primary">
+            <i class="fab fa-twitter link-icon"></i>
+        </a>
+    </li>
+{% elif icon == "linkedin" and location == "footer" %}
+    <li class="item">
+        <a href="{{link}}" target="_blank" aria-label="LinkedIn" class="social-link hint--bounce hint--top hint--primary">
+            <i class="fab fa-linkedin link-icon"></i>
+        </a>
+    </li>
+{% elif icon == "facebook" and location == "header" %}
+    <a href="{{link}}" target="_blank" aria-label="Facebook" class="social-link hint--primary hint--bottom-left">
+        <i class="social-icon fab fa-facebook-f"></i>
+    </a>
+{% elif icon == "instagram" and location == "header" %}
+    <a href="{{link}}" target="_blank" aria-label="Instagram" class="social-link hint--primary hint--bottom-left">
+        <i class="social-icon fab fa-instagram"></i>
+    </a>
+{% elif icon == "twitter" and location == "header" %}
+    <a href="{{link}}" target="_blank" aria-label="Twitter" class="social-link hint--primary hint--bottom-left">
+        <i class="social-icon fab fa-twitter"></i>
+    </a>
+{% elif icon == "linkedin" and location == "header" %}
+    <a href="{{link}}" target="_blank" aria-label="LinkedIn" class="social-link hint--primary hint--bottom-left">
+        <i class="social-icon fab fa-linkedin"></i>
+    </a>
+{% elif icon == "playstore" and link == null %}
+    <a href="#">
+        <button class="btn-android"></button>
+    </a>
+{% elif icon == "playstore" and link !=  null %}
+    <a href="{{link}}" target="_blank">
+        <button class="btn-android"></button>
+    </a>
+{% endif %}
+
+

@@ -67,8 +67,6 @@ class WhatWeDo(CMSPlugin):
         return f'{self.head}'
 
 
-
-
 class GenericTitleDescription(CMSPlugin):
     title = models.CharField(max_length=200)
     description = models.TextField()
@@ -211,11 +209,9 @@ class ContactUs(ck_CMSPlugin):
         return f'{self.contact_no}'
 
 
-
 class Policy(CMSPlugin):
     head = models.CharField(max_length=200)
     description = HTMLField(null=True, blank=True, configuration="POLICY_POST_TEXT_CKEDITOR")
-    
 
     class Meta:
         verbose_name = "Policy"
@@ -223,3 +219,43 @@ class Policy(CMSPlugin):
     def __unicode__(self):
         return f'{self.head}'
 
+class Terms(CMSPlugin):     # NEW, added for Terms of Service 23/03/2022
+    head = models.CharField(max_length=200)
+    description = HTMLField(null=True, blank=True, configuration="TERMS_POST_TEXT_CKEDITOR")
+
+    class Meta:
+        verbose_name = "Terms"
+
+    def __unicode__(self):
+        return f'{self.head}'
+
+
+class FooterLinks(CMSPlugin):
+    linkTypes = (
+        ('internal', 'Internal Link'),
+        ('external', 'External Link'),
+        ('nolink', 'No Link'),
+    )
+    icons = (
+        ('facebook', 'Facebook'),
+        ('instagram', 'Instagram'),
+        ('twitter', 'Twitter'),
+        ('linkedin', 'LinkedIn'),
+        ('playstore', 'Google Play Store'),
+    )
+    locations = (
+        ('header', 'Header'),
+        ('footer', 'Footer'),
+    )
+
+    linkName = models.CharField(max_length=100, blank=True, null=True, )
+    icon = models.CharField(max_length=100, choices=icons, blank=True, null=True, )
+    location = models.CharField(max_length=100, choices=locations, blank=True, null=True, )
+    linkType = models.CharField(max_length=100, choices=linkTypes, )
+    link = models.CharField(max_length=100, blank=True, null=True, )
+
+    class Meta:
+        verbose_name = "Header Footer Links and Socials"
+
+    def __unicode__(self):
+        return f'{self.linkName}'

@@ -131,7 +131,7 @@ MIDDLEWARE = [
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
     'cms.middleware.language.LanguageCookieMiddleware',
-    'django.contrib.sites.middleware.CurrentSiteMiddleware'
+    'django.contrib.sites.middleware.CurrentSiteMiddleware', #NEW, added for Caching, Incomplete
 ]
 
 INSTALLED_APPS = [
@@ -188,7 +188,8 @@ INSTALLED_APPS = [
     'sharedfarm',
     'aps_plugins',
     'bootstrap_modal_forms',
-    'widget_tweaks'
+    'widget_tweaks',
+    'formtools',
 
 ]
 
@@ -221,7 +222,7 @@ CMS_LANGUAGES = {
         'hide_untranslated': False,
     },
 }
-LOGIN_REDIRECT_URL = '/sharedfarm/'
+LOGIN_REDIRECT_URL = '/sharedfarm/#farms'   ##Added for redirecting after login - 13-03-2022
 LOGIN_URL = '/accounts/login'
 LOGOUT_URL = '/accounts/logout'
 CMS_TEMPLATES = (
@@ -231,6 +232,7 @@ CMS_TEMPLATES = (
     ('about.html', 'About'),
     ('technology.html', 'Technology'),
     ('policy.html', 'Policy'),
+    ('terms.html', 'Terms'), # NEW added Terms and Condition template 
 )
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
@@ -289,15 +291,71 @@ CMS_PLACEHOLDER_CONF = {
             'global': 1,
         },
     },
-    
-    'policy-text':{
-        'plugins' : ('PolicyPlugin'),
+    'policy_text': {
+        'plugins': ('PolicyPlugin'),
         'name': 'Policy Plugin',
-        'plugin_label' : {
+        'plugin_label': {
             'PolicyPlugin': 'Add a policy'
         },
     },
-
+    'terms_text': {     # NEW, added for Terms of Service 23/03/2022
+        'plugins': ('TermsOfServicePlugin'),
+        'name': 'Terms of Service Plugin',
+        'plugin_label': {
+            'TermsOfServicePlugin': 'Add a Terms of Service'
+        },
+    },
+    'footer_links_services': {
+        'plugins': ('FooterPlugin',),
+        'name': 'Footer Services Plugin',
+        'plugin_label': {
+            'FooterPlugin': 'Add Footer Sercices Link'
+        },
+    },
+    'footer_links_qlinks': {
+        'plugins': ('FooterPlugin',),
+        'name': 'Footer Quick Links',
+        'plugin_label': {
+            'FooterPlugin': 'Add Footer Quick Link'
+        },
+    },
+    'footer_links_support': {
+        'plugins': ('FooterPlugin',),
+        'name': 'Footer Support Plugin',
+        'plugin_label': {
+            'FooterPlugin': 'Add Footer Support Link'
+        },
+    },
+    'footer_links_socials': {
+        'plugins': ('FooterPlugin',),
+        'name': 'Footer Socials Plugin',
+        'plugin_label': {
+            'FooterPlugin': 'Add Footer Socials'
+        },
+        'limits': {
+            'global': 4,
+        },
+    },
+    'header_links_socials': {
+        'plugins': ('FooterPlugin',),
+        'name': 'Header Socials Plugin',
+        'plugin_label': {
+            'FooterPlugin': 'Add Header Footer Links or Socials'
+        },
+        'limits': {
+            'global': 4,
+        },
+    },
+    'footer_links_apps': {
+        'plugins': ('FooterPlugin',),
+        'name': 'App Store Plugin',
+        'plugin_label': {
+            'FooterPlugin': 'Add Footer App Store Links'
+        },
+        'limits': {
+            'global': 3,
+        },
+    },
 }
 
 # DATABASES = {
@@ -316,11 +374,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            'read_default_file': os.path.join(BASE_DIR, 'aps_shared_farm/local_db.cnf'),
+            'read_default_file': os.path.join(BASE_DIR, 'aps_shared_farm/db_local.cnf'),
+            # Changed from db_live.cnf here
         },
     }
 }
-
+# without docker
+# CELERY_BROKER_URL = "redis://0.0.0.0:6379"
+# CELERY_RESULT_BACKEND = "redis://0.0.0.0:6379"
 CELERY_BROKER_URL = "redis://redis:6379"
 CELERY_RESULT_BACKEND = "redis://redis:6379"
 
@@ -353,7 +414,8 @@ AUTHENTICATION_BACKENDS = [
     'core.util.CustomAuthenticationBackend',  # to be able to login with email or phone
 ]
 
-TOKEN_EXPIRED_AFTER_SECONDS = 604800
+# TOKEN_EXPIRED_AFTER_SECONDS = 604800
+TOKEN_EXPIRED_AFTER_SECONDS = 600
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         # 'rest_framework.authentication.TokenAuthentication',
@@ -370,6 +432,8 @@ REST_FRAMEWORK = {
         'rest_framework.filters.OrderingFilter',
         'rest_framework.filters.SearchFilter',
     ),
+    # 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.openapi.AutoSchema',
+
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     # 'PAGE_SIZE': 10
 }
@@ -406,3 +470,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'info.jouthokhamar@gmail.com'  # sender's email-id
 EMAIL_HOST_PASSWORD = 'tjvwvxgewxkmvjox'  # password associated with above email-id
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+FCM_API_KEY = "AAAAJOnYlbg:APA91bEhE71hXBtJf_FRYCTlIz1rPn0x0WaRlaoW5aZ8hujFMJ-arN5rF_dtgPdIp0492ciNMo0OsQnR8UxNO9_iicF7UeqtMf8jdjA8kwgAR58iZw6b4_5_Ds7LSFALW43eyU3dccCa"

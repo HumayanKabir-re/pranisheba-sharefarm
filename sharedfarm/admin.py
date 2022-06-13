@@ -55,7 +55,7 @@ class ProductAdmin(admin.ModelAdmin):
             'classes': ('general_css',)
         }),
         (_('Shariah Profit Sharing'), {
-            'fields': ('shariah_profit_from', 'shariah_profit_to'),
+            'fields': ('shariah_profit_to',), #'shariah_profit_from', 
             'classes': ('shariah_css',)
         }),
         (_('More Information'), {

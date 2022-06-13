@@ -220,3 +220,10 @@ class InvestorNomineeDetailsProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = InvestorNomineeDetails
         exclude = ('investor',)
+
+
+class InvestorInformationSerializer(serializers.Serializer):
+    profile = ProfileSerializer(many=True)
+    bank_info = InvestorBankingDetailsProfileSerializer(many=True)
+    nominee_info = InvestorNomineeDetailsProfileSerializer(many=True)
+

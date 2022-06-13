@@ -22,7 +22,7 @@
                 <div class="text-muted">{{ invoice.product.breed }} ({{ invoice.product.gender }})</div>
                 <div class="text-muted">{{ invoice.product.location }}</div>
             </td>
-            {#      <td class="text-center">{{ book.author }}</td>#}
+            {% comment %} <td class="text-center">{{ book.author }}</td> {% endcomment %}
             <td class="text-center">
                 {% if invoice.product.category == "general" %}
                     <i class="bi bi-star-fill text-warning"></i>
@@ -47,14 +47,6 @@
                         <button type="button" class="read-farm btn btn-sm btn-primary" data-form-url="{% url 'core:read_farm' invoice.pk %}">
                           <span class="fa fa-eye"></span>
                         </button>
-{#                        <!-- Update book buttons -->#}
-{#                        <button type="button" class="update-book btn btn-sm btn-primary" data-form-url="{% url 'update_book' book.pk %}">#}
-{#                          <span class="fa fa-pencil"></span>#}
-{#                        </button>#}
-{#                        <!-- Delete book buttons -->#}
-{#                        <button type="button" class="delete-book btn btn-sm btn-danger" data-form-url="{% url 'delete_book' book.pk %}">#}
-{#                          <span class="fa fa-trash"></span>#}
-{#                        </button>#}
             </td>
         </tr>
     {% endfor %}

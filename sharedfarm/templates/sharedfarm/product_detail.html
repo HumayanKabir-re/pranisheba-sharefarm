@@ -1,31 +1,44 @@
 {% extends 'sharedfarm/base.html' %}
-{% load i18n l10n static widget_tweaks sekizai_tags thumbnail my_filters%}
+{% load i18n l10n static widget_tweaks sekizai_tags thumbnail my_filters %}
 {% block sharedfarm_content %}
-    {#    <h1>{{ view.config.title }}</h1>#}
-    {#    <p>Namespace: {{ view.namespace }}</p>#}
-    {#    {% url 'sharedfarm:detail' product.id %}#}
-{#    {{ product.faq.faq_category.all }}#}
+    <div class="container">    <!-- NEW Added the new div for breadcrumb for sharedfarm investment navigation - 13/03/2022 -->
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_box text-left">
+                    
+                    <!-- breadcrumb-list start -->
+                    <ul class="breadcrumb-list">
+                        <li class="breadcrumb-item">
+                            <a href="/sharedfarm/#farms">All Farms</a></li>      <!-- NEW, Changed the urls for redirecting logged in Users - 23/03/2022 -->
+                        <li class="breadcrumb-item active">{{ product.name }}</li>
+                    </ul>
+                    <!-- breadcrumb-list end -->
+                    
+                </div>
+            </div>
+        </div>
+    </div>
     <section class="py-5">
         <div class="container px-5">
             <div class="row gx-5">
                 <div class="col-lg-6">
 
                     <div class="bg-featured-blog"
-                    {% if product.image %}
-                        {% thumbnail product.image 400x0 crop=smart quality=85 upscale as thumb %}
+                            {% if product.image %}
+                                {% thumbnail product.image 400x0 crop=smart quality=85 upscale as thumb %}
                          style="background-image: url('{{ thumb.url }}')">
 
-                    {% else %}
-                        style="background-image: url('https://dummyimage.com/400x200/7fb087/ffffff.jpg')">
-                    {% endif %}
-{#                         style="background-image: url('{{ product.image.url }}')">#}
-                        <div class="card-img">
-                            {% if product.is_active %}
-
                             {% else %}
-                                <div class="status-tag">Closed</div>
+                                style="background-image: url('https://dummyimage.com/400x200/7fb087/ffffff.jpg')">
                             {% endif %}
-                        </div>
+                    {#                         style="background-image: url('{{ product.image.url }}')">#}
+                    <div class="card-img">
+                        {% if product.is_active %}
+
+                        {% else %}
+                            <div class="status-tag">Closed</div>
+                        {% endif %}
+                    </div>
                     </div>
 
                 </div>
@@ -43,7 +56,8 @@
                                     {% endif %}
                                 </div>
                                 <div class="title fw-bolder">{{ product.name }}</div>
-                                <div class="price"><strong>{{product.amount |unlocalize| currency }}</strong>/unit</div>
+                                <div class="price"><strong>{{ product.amount |unlocalize| currency }}</strong>/unit
+                                </div>
                                 <div class="text-muted location">{{ product.location }}</div>
 
                                 <div class="stat-section">
@@ -63,47 +77,65 @@
                                             <div>{{ product.profit_percentage }} %</div>
                                             <div>{{ product.get_net_profit }}</div>
                                         {% else %}
-                                            <div>{{ product.shariah_profit_from }}%
-                                                to {{ product.shariah_profit_to }}%
+                                            <div>
+                                                {% comment %} {{ product.shariah_profit_from }}%
+                                                to  {% endcomment %}
+                                                {{ product.shariah_profit_to }}%
                                             </div>
                                         {% endif %}
 
                                     </div>
                                 </div>
                                 <hr class="stat-hr">
+                                <form action="" method="post" class="buy-input-section" id="order">{% csrf_token %}
 
-                                <form class="buy-input-section" id="order" action="{% url 'sharedfarm:checkout' product_id=product.id %}"
-                                      accept-charset="UTF-8" method="post">
-                                    {% csrf_token %}
-{#                                    <input name="utf8" type="hidden"#}
-{#                                                                                  value="✓"><input type="hidden"#}
-{#                                                                                                   name="authenticity_token"#}
-{#                                                                                                   value="CdzfGHs27fgmJ6734CAlvx7p5PwR8hPM+jU5RriwlHxbAvDAJjsdZG88R90xWqZvTZRkaaujKKaMizizXOUxoQ==">#}
-{#                                    <input type="hidden" name="cat_id" id="cat_id" value="158">#}
-                                    <div class="buy-input">
-                                        <input type="number" name="cow_quantity" id="validateInput" value=""
-                                               class="form-control" placeholder="Unit" min="1" max="4"
-                                               autofocus="autofocus" required="required">
-                                    </div>
-                                    {#                                    <div class="d-grid"><a class="btn btn-bordered-what-do " href="{% url 'sharedfarm:detail' products.id %}">Buy Now</a></div>#}
+                                        {{ wizard.management_form }}
+                                        {% if wizard.form.forms %}
+                                            {{ wizard.form.management_form }}
+                                            {% for form in wizard.form.forms %}
+                                                {{ form }}
+                                            {% endfor %}
+                                        {% else %}
+
+                                            <div class="buy-input">
+                                                {% for field in wizard.form %}
+                                                    {% render_field field type="number" name="cow_quantity" id="validateInput" class="form-control" placeholder=field.label min="1" max="4" autofocus="autofocus"%}
+
+                                                    <div class="{% if field.errors or form.non_field_errors %} invalid{% endif %}">
+                                                        {% if form.non_field_errors %}
+                                                            {% for error in form.non_field_errors %}
+                                                                <p class="help-block">{{ error}}</p>
+                                                            {% endfor %}
+
+                                                        {% else %}
+
+                                                            {% for error in field.errors %}
+                                                                <p class="help-block">{{ error }}</p>
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
                                     <div class="buy-btn">
                                         {% if product.is_active %}
                                             <button name="button" type="submit" class="btn-green gtm-track-buy-now">
-                                                Buy Now
+                                                Proceed
                                             </button>
                                         {% else %}
                                             <button name="button" type="submit" class="btn-grey gtm-track-buy-now"
                                                     disabled>
-                                                Buy Now
+                                                Proceed
                                             </button>
                                         {% endif %}
                                     </div>
                                     <div class="sharemax">
                                         <p>&nbsp;**maximum <strong>4 units</strong></p>
-                                        <p>&nbsp;**remaining <strong>{{ product.get_available_number_of_cows }} units</strong></p>
+                                        <p>&nbsp;**remaining <strong>{{ product.get_available_number_of_cows }}
+                                            units</strong></p>
                                     </div>
+{#                                    <input type="submit" value="{% trans "submit" %}"/>#}
                                 </form>
-
                             </div>
                         </div>
                     </div>
@@ -123,10 +155,11 @@
                         <li class="nav-item">
                             <a class="nav-link" id="how-it-works-tab" data-toggle="tab" href="#how-it-works" role="tab"
                                aria-controls="how-it-works" aria-selected="false">How It Works</a>
+                               
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="faq-tab" data-toggle="tab" href="#faq" role="tab"
-                               aria-controls="faq" aria-selected="false">FAQ</a>
+                               aria-controls="faq" aria-selected="false">Terms and Conditions</a>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
@@ -163,30 +196,61 @@
                                 <p>{{ product.details }}</p>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="how-it-works" role="tabpanel" aria-labelledby="how-it-works-tab">
-                            ...
+                        <div class="tab-pane fade p-4 p-md-5" id="how-it-works" role="tabpanel" aria-labelledby="how-it-works-tab">
+                            {% comment %} Removed the ... {% endcomment %}
+                            <p>
+                                <br>
+                                <strong>1. Register</strong><br>
+                                Download our App or use the website to create your account and get registered into your Jouthokhamar account<br> 
+                                <strong>2. Fund your Cattle</strong><br>
+                                Invest in your desired cattle. You can invest on multiple cattle <br>
+                                <strong>3.Purchase Your Cattle</strong><br>
+                                With the money you invest, we will buy the cattle and hand them over to the farmers. <br>
+                                <strong>4. Monitoring them Maturing</strong><br>
+                                Monitor your cattle on Jouthokhamar app receive reports on your cattle wellbeing and growing <br>
+                                <strong>5. Returns</strong><br>
+                                When your cattle reach maturity and are sold, the proceeds will be sent to your account. If you wish, you can reinvest in new opportunities <br><br>
+                                <br>
+                                <br>
+                            </p>
                         </div>
                         <div class="tab-pane fade" id="faq" role="tabpanel" aria-labelledby="faq-tab">
                             <div class="p-4 p-md-5">
                                 <div class="faq-wrapper  section-space--mt_40">
                                     <div id="accordion">
-                                        {% for faq_item in product.faq.faq_category.all %}
-                                        <div class="card">
-                                            <div class="card-header" id="heading{{ forloop.counter }}">
-                                                <h5 class="mb-0">
-                                                    <button class="btn-link collapsed" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
-                                                        {{ faq_item.question }}<span> <i class="fas fa-chevron-down"></i>
+                                        <p>
+                                            1. In case the cattle being invested dies, the investor will be paid the money they invested with no further return on investment. 
+                                            <br>2. It is our duty to notify the appropriate authorities if we detect that our platform is being used to launder money or for any illegal transactions.
+                                            <br>3. Once an investment is made, refunds are not possible until the investment tenure completes
+                                            <br>4. adorsho praniSheba Limited is a registered agri-tech company in Bangladesh that offers innovative and digital solutions to help clients finance the livestock sector and livestock farmers get capital.
+                                            <br>5. praniSheba Shared Farming shall be constructed and regulated in accordance with Bangladeshi law.
+                                            <br>6. Should a disagreement arise and cannot be resolved by mutual agreement/negotiation within 45 days, it will be arbitrated in light of the laws of Bangladesh.
+                                            <br>
+                                            <br>
+                                        </p>
+                                        {% comment %} {% for faq_item in product.faq.faq_category.all %}
+                                            <div class="card">
+                                                <div class="card-header" id="heading{{ forloop.counter }}">
+                                                    <h5 class="mb-0">
+                                                        <button class="btn-link collapsed" data-toggle="collapse"
+                                                                data-target="#collapse{{ forloop.counter }}"
+                                                                aria-expanded="false"
+                                                                aria-controls="collapse{{ forloop.counter }}">
+                                                            {{ faq_item.question }}<span> <i
+                                                                class="fas fa-chevron-down"></i>
                                             <i class="fas fa-chevron-up"></i> </span>
-                                                    </button>
-                                                </h5>
-                                            </div>
-                                            <div id="collapse{{ forloop.counter }}" class="collapse" aria-labelledby="heading{{ forloop.counter }}" data-parent="#accordion">
-                                                <div class="card-body">
-                                                    <p>{{ faq_item.answer }} </p>
+                                                        </button>
+                                                    </h5>
+                                                </div>
+                                                <div id="collapse{{ forloop.counter }}" class="collapse"
+                                                     aria-labelledby="heading{{ forloop.counter }}"
+                                                     data-parent="#accordion">
+                                                    <div class="card-body">
+                                                        <p>{{ faq_item.answer }} </p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        {% endfor %}
+                                        {% endfor %} {% endcomment %}
                                     </div>
 
                                 </div>
@@ -199,3 +263,38 @@
         </div>
     </section>
 {% endblock %}
+
+{#{% block extrascripts %}#}
+{#    <script type="text/javascript">#}
+{#        $(function () {#}
+{##}
+{#            // Read book buttons#}
+{#            function readBookModalForm() {#}
+{#                $(".proceed").each(function () {#}
+{#                    $(this).modalForm({formURL: $(this).data("form-url")});#}
+{#                });#}
+{##}
+{#            }#}
+{##}
+{##}
+{#            readBookModalForm();#}
+{##}
+{#            function reinstantiateModalForms() {#}
+{#                createBookAsyncModalForm();#}
+{#                readBookModalForm();#}
+{#                updateBookModalForm();#}
+{#                deleteBookModalForm();#}
+{#            }#}
+{##}
+{#            // Filter books button#}
+{#            $("#filter-book").each(function () {#}
+{#                $(this).modalForm({formURL: $(this).data("form-url")});#}
+{#            });#}
+{##}
+{#            // Hide message#}
+{#            $(".alert").fadeTo(2000, 500).slideUp(500, function () {#}
+{#                $(".alert").slideUp(500);#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+{#{% endblock extrascripts %}#}

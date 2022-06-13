@@ -185,6 +185,14 @@ small, .small {
   font-size: 0.875em;
 }
 
+small, .medium {
+  font-size: 1.00em;
+}
+
+small, .large {
+  font-size: 1.25em;
+}
+
 mark, .mark {
   padding: 0.2em;
   background-color: #fcf8e3;
@@ -6663,11 +6671,6 @@ textarea.style_form-control-lg {
 .px-5 {
   padding-right: 3rem !important;
   padding-left: 3rem !important;
-}
-
-.px-6 {
-  padding-right: 10rem !important;
-  padding-left: 10rem !important;
 }
 
 .py-0 {

@@ -1,8 +1,8 @@
 from django.urls import reverse_lazy
 from bootstrap_modal_forms.generic import BSModalLoginView, BSModalCreateView, BSModalUpdateView, BSModalReadView, \
     BSModalFormView
-from .forms import CustomAuthenticationForm, CustomUserRegisterForm, UserUpdateForm, ProfileUpdateForm, \
-    PasswordResetForm, SetPasswordForm
+from .forms import CustomAuthenticationForm, CustomUserRegisterForm, UserUpdateForm, ProfileUpdateForm, UpdateProfilePictureForm, \
+    PasswordResetForm, SetPasswordForm, PersonalInfoForm, BankInfoForm, NomineeInfoForm, PasswordChangeForm
 from django.contrib.auth import get_user_model, logout, login
 from django.shortcuts import render, redirect, resolve_url
 from django.contrib.auth.decorators import login_required
@@ -42,6 +42,12 @@ from django.views.generic.base import TemplateView
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ValidationError
 from django.utils.http import urlsafe_base64_decode
+# from .multiform import MultiFormsView, MultiFormsUpdateView
+from rest_framework import permissions
+from rest_framework.generics import (ListCreateAPIView, DestroyAPIView, get_object_or_404, RetrieveUpdateDestroyAPIView, GenericAPIView, ListAPIView)
+from collections import namedtuple
+from django.contrib.auth.hashers import check_password
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 
 User = get_user_model()
 
@@ -51,7 +57,7 @@ class CustomLoginView(BSModalLoginView):
     authentication_form = CustomAuthenticationForm
     template_name = 'core/login.html'
     success_message = 'Success: You were successfully logged in.'
-    extra_context = dict(success_url=reverse_lazy('core:profile'))
+    extra_context = dict( success_url='/sharedfarm/#farms' ) #NEW, added for redirecting - 13/03/2022
 
 
 class SignUpView(BSModalCreateView):
@@ -80,29 +86,9 @@ def user_logout(request):
 
 @login_required
 def user_profile(request):
-    # if request.method == "POST":
-    #     u_form = UserUpdateForm(request.POST, instance=request.user)
-    #     p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.userprofile)
-    #     if u_form.is_valid() and p_form.is_valid():
-    #         u_form.save()
-    #         p_form.save()
-    #         messages.success(request, f'Your account has been updated!')
-    #         return redirect('core:profile')
-    # # user_id = int(user_id)
-    # # try:
-    # #     user_sel = User.objects.get(id=request.user.id)
-    # # except User.DoesNotExist:
-    # #     return redirect('sharedfarm:index')
-    # # u_form = UserUpdateForm(request.POST or None, instance=user_sel)
-    # # p_form = ProfileUpdateForm(request.POST or None, instance=user_sel)
-    # # if profile_form.is_valid():
-    # #     profile_form.save()
-    #
-    # #         messages.success(request, f'updated successfully')
-    # #         return redirect('core:login')
-    # else:
-    u_form = UserUpdateForm(instance=request.user)
-    p_form = ProfileUpdateForm(instance=request.user.userprofile)
+    
+    u_form = UserUpdateForm(instance=request.user)      # Has phone, email and password attribute
+    p_form = ProfileUpdateForm(instance=request.user.userprofile)       # Has every other user attribute besides email, phone and password
 
     context = {
         'u_form': u_form,
@@ -127,9 +113,7 @@ class MyFarms(generic.ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        # if 'type' in self.request.GET:
-        #     qs = qs.filter(book_type=int(self.request.GET['type']))
-        return qs.filter(is_paid=True).filter(user=self.request.user)
+        return qs.filter(user=self.request.user)
 
 
 class FarmDetailsView(BSModalReadView):
@@ -137,8 +121,8 @@ class FarmDetailsView(BSModalReadView):
     template_name = 'core/farm_details.html'
 
 
-class AccountProfilesView(SuccessMessageMixin, LoginRequiredMixin, generic.UpdateView):
-    # When I ask for user with Student Profile
+class AccountProfilesView(BSModalUpdateView):       # Updated, Modified for Edit Profile - 30/03/2022
+     # When I ask for user with Student Profile
     model = UserProfile
     form_class = ProfileUpdateForm
 
@@ -158,56 +142,80 @@ class AccountProfilesView(SuccessMessageMixin, LoginRequiredMixin, generic.Updat
             if user:
                 context['p_form'] = ProfileUpdateForm(self.request.POST, self.request.FILES,
                                                       instance=self.request.user.userprofile)
-        '''
-        if 'form3' not in context:
-            context['form3'] = self.third_form_class(self.request.GET,
-                instance=user)
-        '''
+        
         profile = user.get_user_profile()
         context.update({'userprofile': profile})
-        # if user.is_student:
-        #     profile = user.get_student_profile()
-        #     context.update({'userprofile': profile})
-        # elif user.is_professor:
-        #     profile = user.get_professor_profile()
-        #     context.update({'userprofile': profile})
-        # elif user.is_executive:
-        #     profile = user.get_executive_profile()
-        #     context.update({'userprofile': profile})
         return context
+    
+    # Reset Password Email Block  
+    
+    @method_decorator(csrf_protect)
+    def dispatch(self, *args, **kwargs):
+        
+        
+        return super().dispatch(*args, **kwargs)
+    
+    def get_email(self):
+        try:
+            email = self.request.user.email
+        except(TypeError, ValueError, OverflowError, User.DoesNotExist, ValidationError):
+            email = None
+        return email
+    
+    email_template_name = 'emails/password_reset_email.html'
+    extra_email_context = None
+    # form_class = PasswordResetForm
+    from_email = get_email
+    html_email_template_name = None
+    subject_template_name = 'core/txt/password_reset_subject.txt'
+    success_url = reverse_lazy('core:profile/')
+    # template_name = 'core/password_reset_form.html'
+    # title = _('Password reset')
+    token_generator = default_token_generator
+    
+    
 
-    def form_valid(self, form):
-        context = self.get_context_data(form=form)
+    def post(self):
+        opts = {
+            'use_https': self.request.is_secure(),
+            'token_generator': self.token_generator,
+            'from_email': self.from_email,
+            'email_template_name': self.email_template_name,
+            'subject_template_name': self.subject_template_name,
+            'request': self.request,
+            'html_email_template_name': self.html_email_template_name,
+            'extra_email_context': self.extra_email_context,
+        }
+        return super().post(self)
+
+INTERNAL_RESET_SESSION_TOKEN = '_password_reset_token'
+
+
+class AccountProfilesPictureView(BSModalUpdateView):       # Updated, Modified for Edit Profile - 30/03/2022
+     # When I ask for user with Student Profile
+    model = UserProfile
+    form_class = UpdateProfilePictureForm
+
+    success_message = 'Success: Profile Updated successfully!'
+
+    success_url = reverse_lazy('core:profile')
+    template_name = 'core/profile_edit.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(AccountProfilesPictureView, self).get_context_data(**kwargs)
         user = self.request.user
-        # user = form.save()
-        if user:
-            profile = context['p_form'].save(commit=False)
-            profile.profile_user = user
-            profile.save()
-        # elif user.is_professor:
-        #     professor = context['form_professor'].save(commit=False)
-        #     professor.user = user
-        #     professor.save()
-        # elif user.is_executive:
-        #     executive = context['form_executive'].save(commit=False)
-        #     executive.user = user
-        #     executive.save()
-        # elif user.is_student and user.is_professor and user.is_executive:
-        #     student = context['form_student'].save(commit=False)
-        #     student.user = user
-        #     student.save()
-        #     professor = context['form_professor'].save(commit=False)
-        #     professor.user = user
-        #     professor.save()
-        #     executive = context['form_executive'].save(commit=False)
-        #     executive.user = user
-        #     executive.save()
+        if not self.request.POST:
+            if user:
+                context['p_form'] = UpdateProfilePictureForm(instance=self.request.user.userprofile)
 
-        return super(AccountProfilesView, self).form_valid(form)
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        return super().post(request, *args, **kwargs)
+        else:
+            if user:
+                context['p_form'] = UpdateProfilePictureForm(self.request.POST, self.request.FILES,
+                                                      instance=self.request.user.userprofile)
+        
+        profile = user.get_user_profile()
+        context.update({'userprofile': profile})
+        return context
 
 
 class CustomAuthToken(ObtainAuthToken):
@@ -544,3 +552,129 @@ class PasswordResetCompleteView(PasswordContextMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context['login_url'] = resolve_url(settings.LOGIN_URL)
         return context
+
+class PasswordChangeView(PasswordChangeView):
+    template_name = 'core/password_change_form.html'
+    success_url = reverse_lazy('core:password_change_complete')
+
+
+class PasswordChangeConfirmView(PasswordChangeDoneView):
+    template_name = 'core/password_change_complete.html'
+    title = _('Password change complete')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['login_url'] = resolve_url(settings.LOGIN_URL)
+        return context
+    
+
+investorInfo = namedtuple('InvestorInfo', ('profile', 'bank_info', 'nominee_info'))
+
+
+class InvestorInformationViewSet(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = InvestorInformationSerializer
+
+    def get_queryset(self):
+        queryset = investorInfo(profile=UserProfile.objects.filter(profile_user=self.request.user),
+                                bank_info=InvestorBankingDetails.objects.filter(investor=self.request.user),
+                                nominee_info=InvestorNomineeDetails.objects.filter(investor=self.request.user))
+        return queryset
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=False)
+        return Response(serializer.data)
+
+
+from formtools.wizard.views import SessionWizardView
+from sharedfarm.models import Product
+from sharedfarm.forms import CheckOutForm
+from aldryn_apphooks_config.mixins import AppConfigMixin
+
+TEMPLATES = {
+    "checkout": "sharedfarm/product_detail.html",
+    "profile": "core/checkout_proceed_form.html",
+    "bank": "core/checkout_proceed_form.html",
+    "nominee": "core/checkout_proceed_form.html",
+    # "confirmation": "checkout/confirmation.html"
+}
+
+
+class ContactWizard(AppConfigMixin, generic.DetailView, SessionWizardView):
+    # template_name = "core/checkout_proceed_form.html"
+    form_list = [("checkout", CheckOutForm), ("profile", PersonalInfoForm), ("bank", BankInfoForm),
+                 ("nominee", NomineeInfoForm)]
+    model = Product
+
+    #
+    def get_template_names(self):
+        return [TEMPLATES[self.steps.current]]
+
+    def get_queryset(self):
+        queryset = self.model._default_manager.all()
+        if not getattr(self.request, "toolbar", None) or not self.request.toolbar.edit_mode_active:
+            # queryset = queryset.published()
+            pass
+        return queryset
+
+    def get(self, *args, **kwargs):
+        # submit object to cms to get corrent language switcher and selected category behavior
+        if hasattr(self.request, "toolbar"):
+            self.request.toolbar.set_object(self.get_object())
+        return super().get(*args, **kwargs)
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        print(self.request.user)
+        return super(ContactWizard, self).dispatch(*args, **kwargs)
+
+    def done(self, form_list, **kwargs):
+        print(form_list)
+        return redirect('core:my_farms')
+
+    def get_context_data(self, form, **kwargs):
+        context = super(ContactWizard, self).get_context_data(form, **kwargs)
+        context.update({'product': Product.objects.get(id=self.kwargs['product_id'])})
+        return context
+
+    def process_step(self, form):
+        """
+        This method is used to postprocess the form data. By default, it
+        returns the raw `form.data` dictionary.
+        """
+        print(form.data)
+        return self.get_form_step_data(form)
+
+
+# class InvestorMultipleFormsView(MultiFormsView):
+#     template_name = "core/investor_form.html"
+#     form_classes = {'profile': PersonalInfoForm,
+#                     'bank': BankInfoForm,
+#                     'nominee': NomineeInfoForm
+#                     }
+#
+#     success_urls = {
+#         'profile': reverse_lazy('core:my_farms'),
+#         'bank': reverse_lazy('core:my_farms'),
+#         'nominee': reverse_lazy('core:my_farms'),
+#     }
+#
+#     def profile_form_valid(self, form):
+#         print(self.request.user)
+#         name = form.cleaned_data.get('name')
+#         form_name = form.cleaned_data.get('action')
+#         print(name)
+#         return HttpResponseRedirect(self.get_success_url(form_name))
+
+    # def subscription_form_valid(self, form):
+    #     email = form.cleaned_data.get('email')
+    #     form_name = form.cleaned_data.get('action')
+    #     print(email)
+    #     return HttpResponseRedirect(self.get_success_url(form_name))

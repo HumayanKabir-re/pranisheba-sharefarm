@@ -51,3 +51,10 @@ class Command(BaseCommand):
         print('cow obj created!')
 
         # self.stdout.write(f'{res.json()}')  # NEW
+
+
+# location /media/ {
+#     #alias /var/lib/docker/volumes/pranisheba-sharedfarm_media_volume/_data/;
+#     proxy_pass          http://localhost:8080;
+# proxy_read_timeout  90;
+# }

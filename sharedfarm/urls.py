@@ -34,7 +34,6 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/$', views.ProductDetailView.as_view(), name='detail'),
     # url(r'^(?P<pk>\d+)/results/$', views.ResultsView.as_view(), name='results'),
     # url(r'^(?P<poll_id>\d+)/vote/$', views.vote, name='vote'),
-    # url('create_book/', views.BookCreateView.as_view(), name='create_book'),
     url('^subscribe/$', views.SubscriptionView.as_view(), name='subscribe'),
     url(r'^(?P<product_id>\d+)/checkout/$', views.checkout, name='checkout'),
     path('return_url', views.ReturnUrlView.as_view(), name='return_url'),

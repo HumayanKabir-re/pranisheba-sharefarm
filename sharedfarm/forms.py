@@ -43,3 +43,15 @@ class CheckOutForm(forms.Form):
             raise forms.ValidationError("Out of stock")
 
         return cow_quantity
+
+
+class CheckOutConfirmationForm(forms.Form):
+    CHOICES = [('bankPay', 'bankPay'), ('shurjoPay', 'shurjoPay')]
+    paymentOption = forms.ChoiceField(label='Payment Option', widget=forms.RadioSelect(), choices=CHOICES,
+                                      required=False)
+
+    def clean_paymentOption(self):
+        data = self.cleaned_data.get('paymentOption')
+        if not data:
+            self.add_error("paymentOption", "Please select one of these Payment options")
+        return data

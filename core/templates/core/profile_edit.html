@@ -1,57 +1,52 @@
-{% extends 'core/base.html' %}
+{% comment %} {% extends 'core/base.html' %} {% endcomment %}
 {% load i18n static widget_tweaks sekizai_tags thumbnail%}
+
 {% block profile_content %}
+
+<div class="modal-header">
+    <h3 class="modal-title">Profile details</h3>
+    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
     <form method="post" action="" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="container_style px-5">
-            <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
-                <div class="text-center mb-5">
-                    <div class="text-center">
-                        {% if user.userprofile.profile_img %}
-                            {% thumbnail user.userprofile.profile_img 312x312 crop quality=70 upscale as thumb %}
-                            <img class="img-fluid w-25 rounded-circle mb-4 px-4" src="{{ thumb.url }}" alt="" width="{{ thumb.width }}" height="{{ thumb.height }}" />
-                        {% endif %}
-{#                        <img class="img-fluid w-25 rounded-circle mb-4 px-4" src="{{ user.userprofile.profile_img.url }}" alt="..." />#}
-                        <h5 class="fw-bolder">{{ user.phone }}</h5>
-                        <div class="fst-italic text-muted">{{ user.email }}</div>
+            <div class="container_style">
+                <div class="">
+                    <div class="text-center mb-5">
+                        <div class="text-center">
+                            {% if user.userprofile.profile_img %}
+                                {% thumbnail user.userprofile.profile_img 312x312 crop quality=70 upscale as thumb %}
+                                <img class="img-fluid w-25 rounded-circle mb-4 px-4" src="{{ thumb.url }}" 
+                                alt="" width="{{ thumb.width }}" height="{{ thumb.height }}" />
+                            {% endif %}
+                            {#<img class="img-fluid w-25 rounded-circle mb-4 px-4" src="{{ user.userprofile.profile_img.url }}" alt="..." />#}
+                            <h5 class="fw-bolder">{{ user.phone }}</h5>
+                            <div class="fst-italic text-muted">{{ user.email }}</div>
+                        </div>
                     </div>
-                </div>
-                <div class="row gx-5 justify-content-center">
-                    <div class="col-lg-8 col-xl-6">
-                        <form>
-                            <div class="{% if u_form.non_field_errors %}invalid{% endif %} mb-2">
-                                {% for error in u_form.non_field_errors %}
-                                    {{ error }}
-                                {% endfor %}
-                            </div>
-                            <div class="{% if p_form.non_field_errors %}invalid{% endif %} mb-2">
-                                {% for error in p_form.non_field_errors %}
-                                    {{ error }}
-                                {% endfor %}
-                            </div>
-
-                            {% for field in u_form %}
-                                {% if not field.id_for_label == "id_password" %}
-                                <div class="form-group">
-
-                                    <label for="{{ field.id_for_label }}" >
-                                        {{ field.label }}</label>
-                                    {% render_field field class="form-control" placeholder=field.label %}
-                                    <div class="{% if field.errors %} invalid{% endif %}">
-                                        {% for error in field.errors %}
-                                            <p class="help-block">{{ error }}</p>
-                                        {% endfor %}
-                                    </div>
+                    <div class="row gx-5 justify-content-center">
+                        <div class="col-lg-10 col-xl-8">
+                            <form>
+                                <div class="{% if u_form.non_field_errors %}invalid{% endif %} mb-2">
+                                    {% for error in u_form.non_field_errors %}
+                                        {{ error }}
+                                    {% endfor %}
                                 </div>
-                                {% endif %}
-                            {% endfor %}
-                            {% for field in p_form %}
-                                {% if not field.id_for_label == "id_password" %}
+                                <div class="{% if p_form.non_field_errors %}invalid{% endif %} mb-2">
+                                    {% for error in p_form.non_field_errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+
+                                {% for field in u_form %}
+                                    {% if not field.id_for_label == "id_password" %}
                                     <div class="form-group">
 
                                         <label for="{{ field.id_for_label }}" >
                                             {{ field.label }}</label>
-
                                         {% render_field field class="form-control" placeholder=field.label %}
                                         <div class="{% if field.errors %} invalid{% endif %}">
                                             {% for error in field.errors %}
@@ -59,100 +54,43 @@
                                             {% endfor %}
                                         </div>
                                     </div>
-                                {% endif %}
-                            {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% for field in p_form %}
+                                    {% if not field.id_for_label == "id_password" %}
+                                        <div class="form-group">
 
-                            <!-- Hidden input field for custom redirection after successful login -->
-                            <input type="hidden" name="next" value="{{ success_url }}">
-                            <div class="form-group m-0">
-                                <button type="submit" class="btn btn-primary btn-block">
-                                    SAVE
-                                </button>
-                            </div>
+                                            <label for="{{ field.id_for_label }}" >
+                                                {{ field.label }}</label>
 
-                        </form>
+                                            {% render_field field class="form-control" placeholder=field.label %}
+                                            <div class="{% if field.errors %} invalid{% endif %}">
+                                                {% for error in field.errors %}
+                                                    <p class="help-block">{{ error }}</p>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+
+                                <!-- Hidden input field for custom redirection after successful login -->
+                                <input type="hidden" name="next" value="{{ success_url }}">
+                                <div class="form-group m-0">
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                        SAVE
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="row_style">
-
-
-
-{#                <div class="profile-nav col_style-md-3">#}
-{#                    <div class="panel">#}
-{##}
-{#                        <div class="user-heading round">#}
-{#                            <a href="#">#}
-{#                                <img src="{{ user.userprofile.profile_img.url }}" alt="">#}
-{#                            </a><br>#}
-{#                            {% for field in p_form %}#}
-{##}
-{#                                {% if field.id_for_label == "id_profile_img" %}#}
-{#                                    {% render_field field class="form-control" placeholder=field.label %}#}
-{#                                    <div class="{% if field.errors %} invalid{% endif %}">#}
-{#                                        {% for error in field.errors %}#}
-{#                                            <p class="help-block">{{ error }}</p>#}
-{#                                        {% endfor %}#}
-{#                                    </div>#}
-{#                                {% endif %}#}
-{#                                <div class="form-group">#}
-{##}
-{#                                </div>#}
-{#                            {% endfor %}#}
-{#                            {% for field in u_form %}#}
-{#                                {% if field.id_for_label == "id_phone" %}#}
-{#                                    <h1>{{ field.value }}</h1>#}
-{#                                {% endif %}#}
-{#                                {% if field.id_for_label == "id_email" %}#}
-{#                                    <p>{{ field.value }}</p>#}
-{#                                {% endif %}#}
-{#                            {% endfor %}#}
-{##}
-{##}
-                            {#                            <p>deydey@theEmail.com</p>#}
-{#                        </div>#}
-{##}
-{#                        <ul class="nav nav-pills nav-stacked">#}
-{#                            <li class="active"><a href="#"> <i class="fa fa-user"></i> Profile</a></li>#}
-{#                            <li><a href="#"> <i class="fa fa-calendar"></i> Recent Activity <span#}
-{#                                    class="label label-warning pull-right r-activity">9</span></a></li>#}
-{#                            <li><a href="#"> <i class="fa fa-edit"></i> Edit profile</a></li>#}
-{#                        </ul>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="profile-info col_style-md-9">#}
-{#                    <div class="panel">#}
-{#                        <div class="panel-body bio-graph-info">#}
-{#                            <h1>Profile Info</h1>#}
-{#                            <div class="{% if form.non_field_errors %}invalid{% endif %} mb-2">#}
-{#                                {% for error in form.non_field_errors %}#}
-{#                                    {{ error }}#}
-{#                                {% endfor %}#}
-{#                            </div>#}
-{##}
-{#                            {% for field in u_form %}#}
-{#                                <div class="form-group">#}
-{#                                    <label for="{{ field.id_for_label }}" >#}
-{#                                        {{ field.label }}{% if field.id_for_label == "id_password" %}#}
-{#                                            <a href="forgot.html" class="float-right">#}
-{#                                                Forgot Password?#}
-{#                                            </a>#}
-{#                                        {% endif %}</label>#}
-{#                                    {% render_field field class="form-control" placeholder=field.label %}#}
-{#                                    <div class="{% if field.errors %} invalid{% endif %}">#}
-{#                                        {% for error in field.errors %}#}
-{#                                            <p class="help-block">{{ error }}</p>#}
-{#                                        {% endfor %}#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            {% endfor %}#}
-{#                        </div>#}
-{#                    </div>#}
-{##}
-{#                </div>#}
-
-            </div>
-        </div>
     </form>
+</div>
+    
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data--bs-dismiss="modal">Close</button>
+    </div>
+
 {% endblock %}

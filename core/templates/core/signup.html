@@ -52,9 +52,11 @@
                                     <div class="custom-checkbox custom-control">
                                         <input type="checkbox" name="{{ field.label }}" id="{{ field.id_for_label }}"
                                                class="custom-control-input" required="">
-                                        <label for="{{ field.id_for_label }}" class="custom-control-label">I agree to the <a
-                                                href="#">Terms and
-                                            Conditions</a></label>
+                                        <label for="{{ field.id_for_label }}" class="custom-control-label">I agree to the 
+                                            <a href="/privacy-policy/">    {% comment %} Edited on 07/06/2022: Updated and redirected to the privacy policy page  {% endcomment %}
+                                                Terms and Conditions
+                                            </a>
+                                        </label>  <!-- NEW, added for redirecting to terms and conditions page - 23/03/2022 -->
                                         <div class="{% if field.errors %} invalid{% endif %}">
                                             {% for error in field.errors %}
                                                 <p class="help-block">{{ error }}</p>

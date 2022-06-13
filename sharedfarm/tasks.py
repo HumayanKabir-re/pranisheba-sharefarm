@@ -42,3 +42,37 @@ app.conf.beat_schedule = {
         'args': (16, 16)
     },
 }
+
+from pyfcm import FCMNotification
+from core.models import UserFcmToken
+from django.conf import settings
+
+
+@app.task
+def fcm_notify(receiver_list, data_message):
+    push_service = FCMNotification(api_key=settings.FCM_API_KEY)
+    # receiver_list = UserFcmToken.objects.filter(
+    #     user__phone="01682803595").values_list('fcm_token', flat=True)
+    # data_message = {
+    #     "Nick": "Mario",
+    #     "body": "great match!",
+    #     "Room": "PortugalVSDenmark"
+    # }
+    print(receiver_list)
+    print(data_message)
+    if receiver_list:
+        registration_ids = receiver_list
+        message_title = "New Fund Opportunity Alert!"
+        result = push_service.notify_multiple_devices(registration_ids=registration_ids,
+                                                      message_title=message_title,
+                                                      message_body=data_message["name"],
+                                                      data_message=data_message)
+        # result = push_service.multiple_devices_data_message(registration_ids=registration_ids, data_message=data_message)
+
+                    # push_service.multiple_devices_data_message()
+
+        pass
+    else:
+        result = None
+
+    return result

@@ -19,7 +19,10 @@ class TestMenu(CMSAttachMenu):
         if self.instance and page_site != current_site:
             return []
         if language == "en":
-            n = NavigationNode(_('For Investors'), "/sharedfarm/", 2, attr={'visible_for_anonymous': True})
+            if(request.user.is_authenticated):  #NEW added logic to check if Logged In and should go to Farms - 13/03/2022
+                n = NavigationNode(_('For Investors'), "/sharedfarm/#farms", 2, attr={'visible_for_anonymous': True})
+            if not (request.user.is_authenticated):
+                n = NavigationNode(_('For Investors'), "/sharedfarm/", 2, attr={'visible_for_anonymous': True})
             n2 = NavigationNode(_('For Farmers'), "https://pranisheba.com.bd/eng", 3,
                                 attr={'visible_for_anonymous': True})
             # n3 = NavigationNode(_('For Investors'), "/investors/", 3, 1)
@@ -108,7 +111,8 @@ class UserMenu(Menu):
             n = NavigationNode(_("প্রোফাইল"), reverse('core:profile'), 10, attr={'visible_for_anonymous': False})
             n1 = NavigationNode(_("আমার প্রোফাইল"), reverse('core:profile'), 11, 10,
                                 attr={'visible_for_anonymous': False})
-            n2 = NavigationNode(_("আমার খামার"), reverse('core:my_farms'), 12, 10, attr={'visible_for_anonymous': False})
+            n2 = NavigationNode(_("আমার খামার"), reverse('core:my_farms'), 12, 10,
+                                attr={'visible_for_anonymous': False})
             n3 = NavigationNode(_("প্রস্থান"), reverse('core:logout'), 13, 10, attr={'visible_for_anonymous': False})
             pass
         nodes.append(n)
@@ -130,7 +134,6 @@ class MyMode(Modifier):
         if post_cut:
             return nodes
         # otherwise loop over the nodes
-        # print(request.current_page.is_home)
         if request.current_page:
             if request.current_page.is_home:
                 # print(request.current_page, "i am here")

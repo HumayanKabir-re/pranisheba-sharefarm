@@ -92,6 +92,30 @@ def order_payment_success_email(user, amount, cattle_no):
     msg.send()
 
 
+def unit_book_order_payment_email(user, amount, cattle_no, product):
+    subject = f'SharedFarm Unit Booking({product.name})'
+    htmly = get_template('emails/bookOrder.html')
+    d = {
+        'user': user.userprofile.name,
+        'to': f"Dear {user.userprofile.name}, "
+              "Congratulations!!",
+        'msg': f"Welcome to adorsho praniSheba Shared Farming community. "
+               "We are delighted to have you as a valuable investor on our team. As per request we have booked."
+               "Please refer the following details.",
+        'farm_name': f'{product.name} details:',
+        'farm_price': f'Farm price per unit BDT {product.amount}',
+        'amount': f"Total Price: BDT {amount} ",
+        'no_of_cattle': f"Expected Number of Cattle Ownership: {cattle_no}",
+        'msg_2': "We will update you on your portfolio via emails from time to time.",
+    }
+    html_content = htmly.render(d)
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [user.email, ]
+    msg = EmailMultiAlternatives(subject, html_content, email_from, recipient_list)
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
+
 def password_reset_email(user, otp, valid_window):
     subject = 'Reset your password'
     htmly = get_template('emails/resetPassword.html')

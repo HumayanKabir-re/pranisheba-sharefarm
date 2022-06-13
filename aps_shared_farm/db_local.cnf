@@ -1,0 +1,6 @@
+[client]
+database = sharedfarming
+host = localhost
+user = root
+password = ''
+port = 3306

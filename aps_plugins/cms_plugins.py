@@ -416,6 +416,7 @@ class ContactUsPlugin(CMSPluginBase):
     model = ContactUs
     name = "Contact US plugin"
     render_template = "contact_us.html"
+
     # allow_children = True
 
     # frontend_editable_fields = ("banner_text",)
@@ -443,6 +444,41 @@ class PolicyPlugin(CMSPluginBase):
         return context
 
 
+class TermsOfServicePlugin(CMSPluginBase):      # NEW, added for Terms of Service 23/03/2022
+    model = Terms
+    name = 'Terms of Service Plugin'
+    render_template = 'policy_section.html'
+    text_enabled = True
+
+    def render(self, context, instance, placeholder):
+        context.update({
+            'head': instance.head,
+            'description': instance.description
+        })
+        return context
+
+
+class FooterPlugin(CMSPluginBase):
+    model = FooterLinks
+    name = "Links and Socials"
+    render_template = 'footer_plugin.html'
+    # forms = FooterDropDownForm
+    # fields = ('linkType',)
+    text_enabled = True
+
+    def render(self, context, instance, placeholder):
+        context.update({
+            'linkName': instance.linkName,
+            'icon': instance.icon,
+            'location': instance.location,
+            'linkType': instance.linkType,
+            'link': instance.link,
+        })
+        return context
+
+
+plugin_pool.register_plugin(TermsOfServicePlugin)   # NEW, Changed the urls for redirecting Terms of Service - 23/03/2022
+plugin_pool.register_plugin(FooterPlugin)
 plugin_pool.register_plugin(PolicyPlugin)
 plugin_pool.register_plugin(WhoWeAreLandingTextPlugin)
 plugin_pool.register_plugin(BannerOverlayTextPlugin)

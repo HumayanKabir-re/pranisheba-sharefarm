@@ -7,18 +7,16 @@
 
 <div class="site-wrapper-reveal">
     <div class="col-lg-8 ml-auto mr-auto section-space--pt_40">
-        <div class="card" style="">
-            <div class="faq-wrapper">
-                <div class ="faq-wrapper card-body">
-                    
-                    <!--Plugin Cards with shadows. Can Be used with Hardcoded Cards in this div-->
-                    <div>
-                        {% placeholder "policy-text" or %}
-                                                            
-                        {% endplaceholder %}
-                    </div>
-
+        <div class="card" style="">  <!-- Removed card faq-wrapper for removing shadows 23/03/2022 -->
+            <div class ="faq-wrapper card-body">
+                
+                <!--Plugin Cards with shadows. Can Be used with Hardcoded Cards in this div-->
+                <div>
+                    {% placeholder "policy_text" or %}
+                                                        
+                    {% endplaceholder %}
                 </div>
+
             </div>
         </div>
     </div>
@@ -27,5 +25,3 @@
 
 
 {% endblock %}
-
-

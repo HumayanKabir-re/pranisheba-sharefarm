@@ -1,5 +1,8 @@
 {% extends 'core/base.html' %}
+{% comment %} {% load i18n %}
+{% autoescape off %} {% endcomment %}
 {% load i18n static widget_tweaks sekizai_tags thumbnail%}
+{% load widget_tweaks %}
 {% block profile_content %}
     <!--=========== fun fact Wrapper Start ==========-->
     <div class="fun-fact-wrapper bg-gray section-space--pb_30 section-space--pt_60">
@@ -77,29 +80,10 @@
         </div>
     </div>
     <!--=========== fun fact Wrapper End ==========-->
-    <div class="container bg-white">
+    <div class="container">      <!-- NEW, Added for Edit Profile - 30/03/2022 !-->
         <div class="row">
             <div class="col-lg-4 order-lg-1 order-2">
                 <div class="page-sidebar-content-wrapper page-sidebar-left  small-mt__40 tablet-mt__40">
-
-{#                    <!--=== Sidebar Widget Start ===-->#}
-{#                    <div class="sidebar-widget search-post wow move-up animated" style="visibility: visible;">#}
-{#                        <div class="widget-title">#}
-{#                            <h4 class="sidebar-widget-title">Search</h4>#}
-{#                        </div>#}
-{#                        <form action="#" method="post">#}
-{#                            <div class="widget-search">#}
-{#                                <input type="text" placeholder="Enter search keyword…">#}
-{##}
-{#                                <button type="submit" class="search-submit">#}
-{#                                    <span class="search-btn-icon fa fa-search"></span>#}
-{#                                </button>#}
-{##}
-{#                            </div>#}
-{#                        </form>#}
-{#                    </div>#}
-{#                    <!--=== Sidebar Widget End ===-->#}
-
 
                     <!-- === Sidebar Widget Start === -->
                     <div class="sidebar-widget widget-blog-recent-post wow move-up animated" style="visibility: visible;">
@@ -108,18 +92,27 @@
                             <div class="container_style bootstrap snippets bootdey">
                                 <div class="row_style">
 
-
                                     <div class="profile-nav col_style-md-3">
                                         <div class="panel">
 
-                                            <div class="user-heading round">
+                                            <div class="user-heading round ">
                                                 <a href="#">
                                                     {% if user.userprofile.profile_img %}
                                                         {% thumbnail user.userprofile.profile_img 312x312 crop quality=70 upscale as thumb %}
                                                         <img src="{{ thumb.url }}" alt="" width="{{ thumb.width }}" height="{{ thumb.height }}" />
                                                     {% endif %}
                                                     {#                                <img src="{{ user.userprofile.profile_img.url }}" alt="">#}
-                                                </a><br>
+                                                </a>
+                                                <br>
+                                                <div class="container2">
+                                                    <button type="button" 
+                                                    class="read-profile btn2 ht-btn2--circle hint--bottom hint--bounce hint-primary" 
+                                                    {% comment %} class="read-profile btn2 btn2-s btn2-m btn2-l btn2-xl btn2-xxl hint--bottom hint--bounce hint-primary"  {% endcomment %}
+                                                    aria-label="Upload New Profile Picture"
+                                                    data-form-url="{% url 'core:profile-picture' user.pk %}">
+                                                        <span class="fa fa-camera"></span>
+                                                    </button>
+                                                </div>
                                                 {% for field in u_form %}
                                                     {% if field.id_for_label == "id_phone" %}
                                                         <h1 class="section-sub-title text-white mt-30">{{ field.value }}</h1>
@@ -137,104 +130,86 @@
                                                 <li class="active"><a href="#"> <i class="fa fa-user"></i> Profile</a></li>
                                                 <li><a href="{% url 'core:my_farms' %}"> <i class="fa fa-calendar"></i> My Farms <span
                                                         class="label label-warning pull-right r-activity"></span></a></li>
-                                                <li><a href="{% url 'core:edit_profile' user.userprofile.id %}"> <i class="fa fa-edit"></i> Edit profile</a></li>
+                                                {% comment %} <li><a href="{% url 'core:profile' user.userprofile.id %}"> <i class="fa fa-edit"></i> Edit profile</a></li> {% endcomment %}
+                                                {% comment %} <li><a href="{% url 'core:password_change' user.pk%}"> <i class="fa fa-edit"></i> Change Password</a></li>     <!-- Added on 08/06/2022 !--> {% endcomment %}
+                                                <li><a href="{% url 'core:password_change'%}"> <i class="fa fa-edit"></i> Change Password</a></li>     <!-- Added on 08/06/2022 !-->
                                             </ul>
                                         </div>
                                     </div>
-
 
                                 </div>
                             </div>
                         </form>
 
-{#                        <h4 class="sidebar-widget-title">Recent Posts</h4>#}
-{##}
-{#                        <ul>#}
-{#                            <li>#}
-{#                                <a href="#">Ideas for High Returns on Investment</a>#}
-{#                            </li>#}
-{#                            <li>#}
-{#                                <a href="#">How Technology Made Businesses More Efficient</a>#}
-{#                            </li>#}
-{#                            <li>#}
-{#                                <a href="#">Data Secure on Transitioning to a New Office</a>#}
-{#                            </li>#}
-{#                            <li>#}
-{#                                <a href="#">The Keys to Persuading Customers Nowadays</a>#}
-{#                            </li>#}
-{#                            <li>#}
-{#                                <a href="#">Blockchain Technology Effects on Logistics Sector?</a>#}
-{#                            </li>#}
-{#                        </ul>#}
-
                     </div>
                     <!-- === Sidebar Widget End === -->
-
-{#                    <!-- === Sidebar Widget Start === -->#}
-{#                    <div class="sidebar-widget widget-images wow move-up" style="visibility: hidden; animation-name: none;">#}
-{##}
-{#                        <img class="img-fluid" src="assets/images/blog/blog-sidebar-ads.jpg" alt="">#}
-{##}
-{#                    </div>#}
-{#                    <!-- === Sidebar Widget End === -->#}
-{##}
-{#                    <!-- === Sidebar Widget Start === -->#}
-{#                    <div class="sidebar-widget widget-tag wow move-up" style="visibility: hidden; animation-name: none;">#}
-{#                        <h4 class="sidebar-widget-title">Tags</h4>#}
-{#                        <a href="#" class="ht-btn ht-btn-xs">business</a>#}
-{#                        <a href="#" class="ht-btn ht-btn-xs">featured</a>#}
-{#                        <a href="#" class="ht-btn ht-btn-xs">IT Security</a>#}
-{#                        <a href="#" class="ht-btn ht-btn-xs">IT services</a>#}
-{##}
-{#                    </div>#}
-{#                    <!-- === Sidebar Widget End === -->#}
-
 
                 </div>
             </div>
 
             <div class="col-lg-8 order-lg-2 order-1">
-                <div class="section-title-wrap text-center section-space--mb_60">
-                    <h3 class="heading mt-30">Profile Info</h3>
-                </div>
-                <div class="main-blog-wrap">
-                    <div class="panel-body bio-graph-info">
-
-                        <div class="row_style small">
-
-                            {% for field in p_form %}
-                                {% if not field.id_for_label == "id_profile_img" %}
-                                    <div class="bio-row">
-                                        <p><span>{{ field.label }}</span>: {{ field.value }}</p>
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
-
-
-                        </div>
+                <div class="">
+                    <div class="section-title-wrap text-center section-space--mb_60">
+                        <h3 class="heading mt-30">
+                            Profile Info
+                            <button type="button" class="read-profile btn hint--bounce hint--top hint--primary"
+                            aria-label="Edit Profile" data-form-url="{% url 'core:profile' user.pk %}">
+                                <span class="fa fa-edit"></span>
+                            </button>
+                        </h3>
                     </div>
 
-
-
-
+                    <div class="main-blog-wrap">
+                        <div class="panel-body bio-graph-info-black">
+                            <div class="row_style small.small">
+                                {% for field in p_form %}
+                                    {% if not field.id_for_label == "id_profile_img" %}
+                                        <div class="bio-row">
+                                            <p><span>{{ field.label }}</span>: {{ field.value }}</p>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>
         </div>
     </div>
 
-    {#    <form method="post" action="">#}
-    {##}
-    {##}
-    {##}
-    {#        <!-- Hidden input field for custom redirection after successful login -->#}
-    {#        <input type="hidden" name="next" value="{{ success_url }}">#}
-    {##}
-    {#        <div class="form-group m-0">#}
-    {#            <button type="submit" class="btn btn-primary btn-block">#}
-    {#                Login#}
-    {#            </button>#}
-    {#        </div>#}
-    {##}
-    {#    </form>#}
 {% endblock %}
+
+
+{% block extrascripts %}
+    <script type="text/javascript">
+        $(function () {
+
+
+            // Read book buttons
+            function readBookModalForm() {
+                $(".read-profile").each(function () {
+                    $(this).modalForm({formURL: $(this).data("form-url")});
+                });
+            }
+            readBookModalForm();
+
+            function reinstantiateModalForms() {
+                createBookAsyncModalForm();
+                readBookModalForm();
+                updateBookModalForm();
+                deleteBookModalForm();
+            }
+
+            // Filter books button
+            $("#filter-book").each(function () {
+                $(this).modalForm({formURL: $(this).data("form-url")});
+            });
+
+            // Hide message
+            $(".alert").fadeTo(2000, 500).slideUp(500, function () {
+                $(".alert").slideUp(500);
+            });
+        });
+    </script>
+{% endblock extrascripts %}
